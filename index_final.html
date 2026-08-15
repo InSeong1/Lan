@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신나는 팔도 사투리 탐험대!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; background: #f0f9ff; padding: 20px; }
+        
+        header { background: white; padding: 30px 20px; text-align: center; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        h1 { font-size: 28px; color: #0369a1; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 14px; }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 16px; border: none; border-radius: 50px; font-size: 13px; font-weight: bold; cursor: pointer; background: white; color: #666; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .tab-btn.active { background: #0ea5e9; color: white; }
+        .tab-btn:hover { transform: translateY(-2px); }
+        
+        .section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .section h2 { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px; }
+        
+        textarea { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; min-height: 100px; }
+        textarea:focus { outline: none; border-color: #0ea5e9; }
+        
+        .regions { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
+        .region-btn { padding: 12px; border: 2px solid #ddd; border-radius: 12px; background: #f5f5f5; cursor: pointer; text-align: center; transition: all 0.3s; font-weight: bold; }
+        .region-btn.active { background: #0ea5e9; color: white; border-color: #0ea5e9; transform: scale(1.05); }
+        .region-icon { font-size: 20px; margin-bottom: 5px; }
+        .region-name { font-size: 12px; }
+        
+        .output { background: #e0f2fe; padding: 20px; border-radius: 12px; min-height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .output-text { font-size: 24px; font-weight: bold; color: #333; margin-bottom: 15px; }
+        .copy-btn { padding: 10px 20px; background: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        .copy-btn:hover { background: #f0f0f0; }
+        
+        .example-section { background: #f9fafb; padding: 15px; border-radius: 12px; margin-top: 15px; }
+        .example-title { font-weight: bold; color: #333; margin-bottom: 8px; font-size: 13px; }
+        .example-item { padding: 6px 0; border-bottom: 1px solid #ddd; font-size: 12px; }
+        .example-item:last-child { border-bottom: none; }
+        .example-std { color: #666; }
+        .example-dialect { color: #0369a1; font-weight: bold; }
+        
+        .quiz-header { background: #fed7aa; padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; font-size: 14px; }
+        .quiz-question { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 20px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { padding: 12px; border: 2px solid #ddd; border-radius: 12px; background: white; text-align: left; cursor: pointer; transition: all 0.3s; font-size: 14px; }
+        .option-btn:hover:not(:disabled) { border-color: #ea580c; background: #fef3c7; }
+        .option-btn:disabled { cursor: not-allowed; }
+        .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #166534; font-weight: bold; }
+        .option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .option-btn.disabled { background: #f5f5f5; color: #999; opacity: 0.5; }
+        
+        .feedback { background: #f5f5f5; padding: 15px; border-radius: 12px; margin-top: 15px; }
+        .feedback-title { font-weight: bold; font-size: 16px; margin-bottom: 8px; }
+        .feedback-text { color: #666; line-height: 1.6; margin-bottom: 12px; font-size: 14px; }
+        .next-btn { width: 100%; padding: 12px; background: #1f2937; color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .next-btn:hover { background: #111827; }
+        
+        .result { background: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 500px; margin: 20px auto; }
+        .result-emoji { font-size: 50px; margin-bottom: 15px; }
+        .result-title { font-size: 24px; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .result-score { font-size: 14px; color: #666; margin-bottom: 20px; }
+        .score-highlight { font-size: 32px; color: #ea580c; font-weight: bold; }
+        .reset-btn { padding: 12px 24px; background: #ea580c; color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; }
+        
+        .matching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .matching-column { display: flex; flex-direction: column; gap: 10px; }
+        .match-item { padding: 12px; background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 8px; cursor: pointer; transition: all 0.3s; font-size: 13px; font-weight: 500; text-align: center; }
+        .match-item:hover { background: #e0f2fe; transform: scale(1.02); }
+        .match-item.selected { background: #0ea5e9; color: white; }
+        .match-item.matched { background: #dcfce7; border-color: #22c55e; color: #166534; cursor: not-allowed; }
+        .match-item.wrong { background: #fee2e2; border-color: #ef4444; }
+        
+        .blank-game { font-size: 14px; line-height: 1.8; }
+        .blank-input { padding: 8px; border: 2px solid #0ea5e9; border-radius: 6px; width: 120px; font-size: 13px; }
+        .check-btn { padding: 8px 16px; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-left: 10px; }
+        
+        .dictionary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+        .dict-card { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .dict-std { font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14px; }
+        .dict-labels { display: flex; flex-wrap: wrap; gap: 5px; }
+        .dict-label { background: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; color: #0369a1; font-weight: bold; }
+        
+        .match-score { text-align: center; font-size: 16px; font-weight: bold; margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 12px; }
+        .reset-match-btn { padding: 10px 20px; background: #0ea5e9; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🗺️ 신나는 팔도 사투리 탐험대!</h1>
+        <p class="subtitle">우리나라의 아름다운 지역 말을 배워보세요 🎒</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="translator">🗣️ 번역기</button>
+            <button class="tab-btn" data-tab="quiz">🎯 퀴즈</button>
+            <button class="tab-btn" data-tab="matching">🎮 매칭게임</button>
+            <button class="tab-btn" data-tab="blanks">🧩 빈칸채우기</button>
+            <button class="tab-btn" data-tab="dictionary">📚 사투리사전</button>
+        </div>
+
+        <div id="translator" class="tab-content">
+            <div class="section">
+                <h2>표준어 입력</h2>
+                <textarea id="inputText" placeholder="예: 할아버지 / 어서오세요 / 무엇을하십니까 / 왜그렇게급하신가 / 따뜻합니까"></textarea>
+            </div>
+            <div class="section">
+                <h2>방언 선택</h2>
+                <div class="regions" id="regionsContainer"></div>
+            </div>
+            <div class="section" style="background: #e0f2fe;">
+                <h2>🌐 사투리 결과</h2>
+                <div class="output">
+                    <div id="outputText" class="output-text">문장을 입력하세요!</div>
+                    <button id="copyBtn" class="copy-btn" style="display:none;">📋 복사</button>
+                </div>
+                <div class="example-section" id="examplesContainer"></div>
+            </div>
+        </div>
+
+        <div id="quiz" class="tab-content" style="display:none;">
+            <div id="quizContent"></div>
+        </div>
+
+        <div id="matching" class="tab-content" style="display:none;">
+            <div class="section">
+                <h2>🎮 표준어와 사투리를 맞춰보세요!</h2>
+                <div class="section">
+                    <h2>지역 선택</h2>
+                    <div class="regions" id="matchRegionContainer"></div>
+                </div>
+                <div id="matchingGameContent"></div>
+            </div>
+        </div>
+
+        <div id="blanks" class="tab-content" style="display:none;">
+            <div class="section">
+                <h2>🧩 사투리 문장의 빈칸을 채워보세요!</h2>
+                <div class="section">
+                    <h2>지역 선택</h2>
+                    <div class="regions" id="blankRegionContainer"></div>
+                </div>
+                <div id="blankGameContent"></div>
+            </div>
+        </div>
+
+        <div id="dictionary" class="tab-content" style="display:none;">
+            <div class="section">
+                <h2>📚 팔도 사투리 사전</h2>
+                <div class="section">
+                    <h2>지역 선택</h2>
+                    <div class="regions" id="dictRegionContainer"></div>
+                </div>
+                <div id="dictionaryContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const REGIONS = [
+            { id: 'gangwon', name: '강원도', icon: '🌲' },
+            { id: 'chungcheong', name: '충청도', icon: '🌾' },
+            { id: 'gyeongsang', name: '경상도', icon: '🌊' },
+            { id: 'jeolla', name: '전라도', icon: '🍚' },
+            { id: 'jeju', name: '제주도', icon: '🍊' },
+        ];
+
+        // 제주도 최강화 버전 (관광객 TOP10 포함)
+        const DICTIONARY = {
+            gangwon: {'할아버지': '할아버지', '할머니': '할머니', '어서오세요': '혼저 옵서게', '잠깐있으세요': '고만 시라게', '무엇을하십니까': '무신거 햄시니', '왜그렇게급하신가': '무사 경 급호냐', '빨리오세요': '확 오라게', '따뜻합니까': '따뜻하우꽈', '정말좋습니다': '촘말로 좋수다', '와서보세요': '왕 봅서'},
+            chungcheong: {'할아버지': '할아버지', '할머니': '할머니', '어서오세요': '혼저 오세요', '잠깐있으세요': '고만 하세요', '무엇을하십니까': '무신거 할라고', '왜그렇게급하신가': '왜 그러노', '빨리오세요': '얼렁 와요', '따뜻합니까': '따뜻한가', '정말좋습니다': '정말 좋아요', '와서보세요': '와 봐요'},
+            gyeongsang: {'할아버지': '할아버지', '할머니': '할머니', '어서오세요': '어서 오세요', '잠깐있으세요': '잠깐만 있어', '무엇을하십니까': '뭐 하냐고', '왜그렇게급하신가': '왜 그리 급한고', '빨리오세요': '퍼뜩 와', '따뜻합니까': '따뜻하냐고', '정말좋습니다': '진짜 좋네예', '와서보세요': '와 봐라'},
+            jeolla: {'할아버지': '할아버지', '할머니': '할머니', '어서오세요': '어서 오세요', '잠깐있으세요': '잠깐 있어', '무엇을하십니까': '뭐 하냐고', '왜그렇게급하신가': '왜 그리 급하냐고', '빨리오세요': '얼릉 와', '따뜻합니까': '따뜻한가', '정말좋습니다': '참말로 좋네', '와서보세요': '와 봐'},
+            jeju: {
+                // 핵심 가족 호칭
+                '할아버지': '하르방',
+                '할머니': '할망',
+                '아버지': '아방',
+                '어머니': '어멍',
+                
+                // 신기한 인사 (관광객 TOP 10)
+                '어서오세요': '혼저 옵서예',
+                '어서오십시오': '혼저 오라게',
+                '잠깐있으세요': '고만 십서게',
+                '빨리오세요': '확 옵서게',
+                
+                // 관광객들이 뽑은 신기한 표현들 TOP 10
+                '어떻게지내십니까': '어떵 살아 점수꽈',
+                '편안하십니까': '펜안 해수꽈',
+                '무엇이라고말하십니까': '무싱거엔 고람쑤꽈',
+                '귀와눈이캄캄합니다': '귀 눈이 왁왁하우다',
+                '따뜻할때': '맨도롱 혼때',
+                '후루룩드세요': '호로록 들여 싸붑서',
+                '뭘그리늦장부리십니까': '무싱 걸 몽캐미꽈',
+                '와서보세요': '왕 봅서',
+                '말로해서는모릅니다': '고랑은 몰라 마씀',
+                '아름답게벗으세요': '곱들락 호게 몬뜰락 벗엉 옵서',
+                
+                // 추가 일상 표현
+                '어디갔다가오셨어요': '어디 갔당 왐수꽈',
+                '어디로가세요': '어드레 감수꽈',
+                '고생하시면서키우세요': '둥그리멍 키웁서',
+                '그래야빨리자랍니다': '경 해사 혼저 큽니다',
+                '어떻게살까': '어떵 살코',
+                '걱정하지마세요': '저들지 맙서',
+                '참고살면살수있어요': '촘앙 살민 살아집니다',
+                '너하고나하고': '느영 나영',
+                '둘이사랑합시다': '두리둥실 소랑호게 마씸',
+                '제주도에왔습니까': '제주도에 오난 어떵 하우꽈',
+                '정말좋습니다': '촘말로 좋수다',
+                '왜그렇게말하십니까': '무상 경 고람수꽈',
+                '꾸물대지마세요': '몽캐지 말앙 혼저 오라게',
+                '조금만있으세요': '호꼼만 이십서게',
+                '와서먹으세요': '혼저 왕 먹읍서',
+                '따뜻합니까': '맨드롱 했수꽈',
+                '따뜻할때드세요': '맨도롱 홀 때 호로록 들여 싸붑서',
+                
+                // 기본 단어
+                '고마워': '고맙수다',
+                '미안해': '미안마씸',
+                '왜': '무사',
+                '무엇': '무신거',
+                '좋다': '좋수다',
+                '싫다': '싫수다',
+                '있다': '있수다',
+                '없다': '없수다',
+                '달걀': '독새기',
+                '호미': '골갱이',
+                '무': '놈삐',
+                '마늘': '콥대산이',
+            },
+        };
+
+        const EXAMPLES = {
+            gangwon: [
+                { std: '할아버지', dialect: '할아버지' },
+                { std: '어서오세요', dialect: '혼저 옵서게' },
+                { std: '무엇을하십니까', dialect: '무신거 햄시니' },
+                { std: '왜그렇게급하신가', dialect: '무사 경 급호냐' },
+                { std: '정말좋습니다', dialect: '촘말로 좋수다' },
+                { std: '와서보세요', dialect: '왕 봅서' },
+                { std: '말로해서는모릅니다', dialect: '고랑은 몰라 마씀' },
+            ],
+            chungcheong: [
+                { std: '할아버지', dialect: '할아버지' },
+                { std: '어서오세요', dialect: '혼저 오세요' },
+                { std: '잠깐있으세요', dialect: '고만 하세요' },
+                { std: '무엇을하십니까', dialect: '무신거 할라고' },
+                { std: '왜그렇게급하신가', dialect: '왜 그러노' },
+                { std: '정말좋습니다', dialect: '정말 좋아요' },
+                { std: '와서보세요', dialect: '와 봐요' },
+            ],
+            gyeongsang: [
+                { std: '할아버지', dialect: '할아버지' },
+                { std: '어서오세요', dialect: '어서 오세요' },
+                { std: '잠깐있으세요', dialect: '잠깐만 있어' },
+                { std: '무엇을하십니까', dialect: '뭐 하냐고' },
+                { std: '왜그렇게급하신가', dialect: '왜 그리 급한고' },
+                { std: '빨리오세요', dialect: '퍼뜩 와' },
+                { std: '정말좋습니다', dialect: '진짜 좋네예' },
+            ],
+            jeolla: [
+                { std: '할아버지', dialect: '할아버지' },
+                { std: '어서오세요', dialect: '어서 오세요' },
+                { std: '잠깐있으세요', dialect: '잠깐 있어' },
+                { std: '무엇을하십니까', dialect: '뭐 하냐고' },
+                { std: '왜그렇게급하신가', dialect: '왜 그리 급하냐고' },
+                { std: '정말좋습니다', dialect: '참말로 좋네' },
+                { std: '와서보세요', dialect: '와 봐' },
+            ],
+            jeju: [
+                { std: '할아버지', dialect: '하르방' },
+                { std: '어서오세요', dialect: '혼저 옵서예' },
+                { std: '어떻게지내십니까', dialect: '어떵 살아 점수꽈' },
+                { std: '무엇을하십니까', dialect: '무신거 햄쑤꽈' },
+                { std: '왜그렇게급하신가', dialect: '무사 경 급호꽈' },
+                { std: '정말좋습니다', dialect: '촘말로 좋수다' },
+                { std: '와서보세요', dialect: '왕 봅서' },
+                { std: '말로해서는모릅니다', dialect: '고랑은 몰라 마씀' },
+                { std: '따뜻합니까', dialect: '맨드롱 했수꽈' },
+                { std: '걱정마세요', dialect: '저들지 맙서' },
+            ],
+        };
+
+        const DICTIONARY_DATA = {
+            gangwon: [
+                { std: '할아버지', dialects: { gangwon: '할아버지', chungcheong: '할아버지', gyeongsang: '할아버지', jeolla: '할아버지', jeju: '하르방' } },
+                { std: '할머니', dialects: { gangwon: '할머니', chungcheong: '할머니', gyeongsang: '할머니', jeolla: '할머니', jeju: '할망' } },
+                { std: '아버지', dialects: { gangwon: '아부지', chungcheong: '아부지', gyeongsang: '아버지', jeolla: '아버지', jeju: '아방' } },
+                { std: '어머니', dialects: { gangwon: '어머니', chungcheong: '어머니', gyeongsang: '어머니', jeolla: '어머니', jeju: '어멍' } },
+                { std: '어서오세요', dialects: { gangwon: '혼저 옵서게', chungcheong: '혼저 오세요', gyeongsang: '어서 오세요', jeolla: '어서 오세요', jeju: '혼저 옵서예' } },
+                { std: '무엇을하십니까', dialects: { gangwon: '무신거 햄시니', chungcheong: '무신거 할라고', gyeongsang: '뭐 하냐고', jeolla: '뭐 하냐고', jeju: '무신거 햄쑤꽈' } },
+                { std: '왜그렇게급하신가', dialects: { gangwon: '무사 경 급호냐', chungcheong: '왜 그러노', gyeongsang: '왜 그리 급한고', jeolla: '왜 그리 급하냐고', jeju: '무사 경 급호꽈' } },
+                { std: '정말좋습니다', dialects: { gangwon: '촘말로 좋수다', chungcheong: '정말 좋아요', gyeongsang: '진짜 좋네예', jeolla: '참말로 좋네', jeju: '촘말로 좋수다' } },
+                { std: '와서보세요', dialects: { gangwon: '왕 봅서', chungcheong: '와 봐요', gyeongsang: '와 봐라', jeolla: '와 봐', jeju: '왕 봅서' } },
+                { std: '말로해서는모릅니다', dialects: { gangwon: '고랑은 몰라 마씀', chungcheong: '말로는 모르겠어', gyeongsang: '말로는 몰라', jeolla: '말로는 몰라', jeju: '고랑은 몰라 마씀' } },
+            ],
+            chungcheong: [
+                { std: '고마워', dialects: { gangwon: '고마우드래', chungcheong: '고마워요', gyeongsang: '고마워예', jeolla: '고마워', jeju: '고맙수다' } },
+                { std: '미안해', dialects: { gangwon: '미안하드래', chungcheong: '미안해요', gyeongsang: '미안해예', jeolla: '미안해', jeju: '미안마씸' } },
+                { std: '왜', dialects: { gangwon: '와', chungcheong: '왜', gyeongsang: '와', jeolla: '왜', jeju: '무사' } },
+                { std: '좋다', dialects: { gangwon: '좋드래', chungcheong: '좋아요', gyeongsang: '좋아예', jeolla: '좋구만', jeju: '좋수다' } },
+                { std: '싫다', dialects: { gangwon: '싫드래', chungcheong: '싫어요', gyeongsang: '싫어예', jeolla: '싫구만', jeju: '싫수다' } },
+                { std: '있다', dialects: { gangwon: '있드래', chungcheong: '있어요', gyeongsang: '있어예', jeolla: '있어', jeju: '있수다' } },
+                { std: '없다', dialects: { gangwon: '없드래', chungcheong: '없어요', gyeongsang: '없어예', jeolla: '없어', jeju: '없수다' } },
+                { std: '조금', dialects: { gangwon: '조금', chungcheong: '쪼매', gyeongsang: '쪼매', jeolla: '쪼금', jeju: '호꼼' } },
+                { std: '많이', dialects: { gangwon: '천지', chungcheong: '천지', gyeongsang: '천지', jeolla: '허벌나게', jeju: '하영' } },
+                { std: '빨리', dialects: { gangwon: '얼렁', chungcheong: '얼렁', gyeongsang: '퍼뜩', jeolla: '얼릉', jeju: '혼저' } },
+            ],
+            gyeongsang: [
+                { std: '달걀', dialects: { gangwon: '달걀', chungcheong: '달걀', gyeongsang: '달걀', jeolla: '독새기', jeju: '독새기' } },
+                { std: '호미', dialects: { gangwon: '호미', chungcheong: '호미', gyeongsang: '호미', jeolla: '골갱이', jeju: '골갱이' } },
+                { std: '무', dialects: { gangwon: '무', chungcheong: '무', gyeongsang: '무', jeolla: '놈삐', jeju: '놈삐' } },
+                { std: '마늘', dialects: { gangwon: '마늘', chungcheong: '마늘', gyeongsang: '마늘', jeolla: '콥대산이', jeju: '콥대산이' } },
+                { std: '처녀', dialects: { gangwon: '처녀', chungcheong: '처녀', gyeongsang: '처녀', jeolla: '비바리', jeju: '비바리' } },
+                { std: '친족', dialects: { gangwon: '친족', chungcheong: '친족', gyeongsang: '친족', jeolla: '괸당', jeju: '괸당' } },
+                { std: '가다', dialects: { gangwon: '가드래', chungcheong: '가요', gyeongsang: '가예', jeolla: '가', jeju: '가수다' } },
+                { std: '오다', dialects: { gangwon: '오드래', chungcheong: '와요', gyeongsang: '와예', jeolla: '와', jeju: '온수다' } },
+                { std: '먹다', dialects: { gangwon: '묵드래', chungcheong: '먹어요', gyeongsang: '묵어예', jeolla: '먹어', jeju: '먹수다' } },
+                { std: '하다', dialects: { gangwon: '하드래', chungcheong: '해요', gyeongsang: '해예', jeolla: '해', jeju: '한수다' } },
+            ],
+            jeolla: [
+                { std: '어떻게지내십니까', dialects: { gangwon: '어떻게 지내', chungcheong: '어떻게 지내', gyeongsang: '어떻게 지내', jeolla: '어떵 살코', jeju: '어떵 살아 점수꽈' } },
+                { std: '편안하십니까', dialects: { gangwon: '편안해', chungcheong: '편안해', gyeongsang: '편안해', jeolla: '편안해', jeju: '펜안 해수꽈' } },
+                { std: '따뜻할때', dialects: { gangwon: '따뜻할때', chungcheong: '따뜻할때', gyeongsang: '따뜻할때', jeolla: '따뜻할때', jeju: '맨도롱 혼때' } },
+                { std: '후루룩드세요', dialects: { gangwon: '쭉 드세요', chungcheong: '쭉 드세요', gyeongsang: '쭉 드세요', jeolla: '쭉 드세요', jeju: '호로록 들여 싸붑서' } },
+                { std: '걱정마세요', dialects: { gangwon: '걱정 마세요', chungcheong: '걱정 마세요', gyeongsang: '걱정 마세요', jeolla: '걱정 마세요', jeju: '저들지 맙서' } },
+                { std: '참고살면살수있어요', dialects: { gangwon: '참고 살면', chungcheong: '참고 살면', gyeongsang: '참고 살면', jeolla: '참고 살면', jeju: '촘앙 살민 살아집니다' } },
+                { std: '너하고나하고사랑합시다', dialects: { gangwon: '너하고 나하고', chungcheong: '너하고 나하고', gyeongsang: '너하고 나하고', jeolla: '너하고 나하고', jeju: '느영 나영 두리둥실 소랑호게 마씸' } },
+                { std: '꾸물대지말고오세요', dialects: { gangwon: '빨리 와요', chungcheong: '빨리 와요', gyeongsang: '빨리 와', jeolla: '빨리 와', jeju: '몽캐지 말앙 혼저 오라게' } },
+                { std: '아름답게벗으세요', dialects: { gangwon: '예쁘게 입으세요', chungcheong: '예쁘게 입으세요', gyeongsang: '예쁘게 입으세요', jeolla: '예쁘게 입으세요', jeju: '곱들락 호게 몬뜰락 벗엉 옵서' } },
+                { std: '어디갔다가오셨어요', dialects: { gangwon: '어디 갔다 왔어', chungcheong: '어디 갔다 왔어', gyeongsang: '어디 갔다 왔어', jeolla: '어디 갔다 왔어', jeju: '어디 갔당 왐수꽈' } },
+            ],
+            jeju: [
+                { std: '제주도신기한사투리1', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '어떵 살아 점수꽈' } },
+                { std: '제주도신기한사투리2', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '무싱거엔 고람쑤꽈' } },
+                { std: '제주도신기한사투리3', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '맨도롱 혼때 호로록' } },
+                { std: '제주도신기한사투리4', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '무싱 걸 몽캐미꽈' } },
+                { std: '제주도신기한사투리5', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '왕 봅서' } },
+                { std: '제주도신기한사투리6', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '곱들락 호게' } },
+                { std: '제주도신기한사투리7', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '어디 갔당 왐수꽈' } },
+                { std: '제주도신기한사투리8', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '둥그리멍 키웁서' } },
+                { std: '제주도신기한사투리9', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '어떵 살코' } },
+                { std: '제주도신기한사투리10', dialects: { gangwon: 'X', chungcheong: 'X', gyeongsang: 'X', jeolla: 'X', jeju: '느영 나영' } },
+            ],
+        };
+
+        const MATCHING_PAIRS = {
+            gangwon: [
+                { id: 1, std: '할아버지', dialect: '할아버지' },
+                { id: 2, std: '어서오세요', dialect: '혼저 옵서게' },
+                { id: 3, std: '무엇을하십니까', dialect: '무신거 햄시니' },
+                { id: 4, std: '왜그렇게급하신가', dialect: '무사 경 급호냐' },
+                { id: 5, std: '정말좋습니다', dialect: '촘말로 좋수다' },
+            ],
+            chungcheong: [
+                { id: 1, std: '할아버지', dialect: '할아버지' },
+                { id: 2, std: '어서오세요', dialect: '혼저 오세요' },
+                { id: 3, std: '무엇을하십니까', dialect: '무신거 할라고' },
+                { id: 4, std: '왜그렇게급하신가', dialect: '왜 그러노' },
+                { id: 5, std: '조금만', dialect: '쪼매만' },
+            ],
+            gyeongsang: [
+                { id: 1, std: '할아버지', dialect: '할아버지' },
+                { id: 2, std: '어서오세요', dialect: '어서 오세요' },
+                { id: 3, std: '무엇을하십니까', dialect: '뭐 하냐고' },
+                { id: 4, std: '왜그렇게급하신가', dialect: '왜 그리 급한고' },
+                { id: 5, std: '빨리오세요', dialect: '퍼뜩 와' },
+            ],
+            jeolla: [
+                { id: 1, std: '할아버지', dialect: '할아버지' },
+                { id: 2, std: '어서오세요', dialect: '어서 오세요' },
+                { id: 3, std: '무엇을하십니까', dialect: '뭐 하냐고' },
+                { id: 4, std: '정말좋습니다', dialect: '참말로 좋네' },
+                { id: 5, std: '와서보세요', dialect: '와 봐' },
+            ],
+            jeju: [
+                { id: 1, std: '할아버지', dialect: '하르방' },
+                { id: 2, std: '어서오세요', dialect: '혼저 옵서예' },
+                { id: 3, std: '무엇을하십니까', dialect: '무신거 햄쑤꽈' },
+                { id: 4, std: '왜그렇게급하신가', dialect: '무사 경 급호꽈' },
+                { id: 5, std: '와서보세요', dialect: '왕 봅서' },
+            ],
+        };
+
+        const BLANK_SENTENCES = {
+            gangwon: [
+                { sentence: '____ (할아버지)', blank: '할아버지' },
+                { sentence: '____ (어서오세요)', blank: '혼저 옵서게' },
+                { sentence: '무엇을 ____ (하십니까)', blank: '햄시니' },
+                { sentence: '____ (정말) 좋습니다', blank: '촘말로' },
+            ],
+            chungcheong: [
+                { sentence: '____ (할아버지)', blank: '할아버지' },
+                { sentence: '____ (어서오세요)', blank: '혼저 오세요' },
+                { sentence: '무엇을 ____ (하십니까)', blank: '할라고' },
+                { sentence: '____ (잠깐) 있으세요', blank: '고만' },
+            ],
+            gyeongsang: [
+                { sentence: '____ (할아버지)', blank: '할아버지' },
+                { sentence: '____ (어서오세요)', blank: '어서 오세요' },
+                { sentence: '무엇을 ____ (하십니까)', blank: '하냐고' },
+                { sentence: '____ (빨리) 오세요', blank: '퍼뜩' },
+            ],
+            jeolla: [
+                { sentence: '____ (할아버지)', blank: '할아버지' },
+                { sentence: '____ (어서오세요)', blank: '어서 오세요' },
+                { sentence: '무엇을 ____ (하십니까)', blank: '하냐고' },
+                { sentence: '____ (정말) 좋습니다', blank: '참말로' },
+            ],
+            jeju: [
+                { sentence: '____ (할아버지)', blank: '하르방' },
+                { sentence: '____ (어서오세요)', blank: '혼저 옵서예' },
+                { sentence: '무엇을 ____ (하십니까)', blank: '햄쑤꽈' },
+                { sentence: '____ (왜) 그렇게 급하신가', blank: '무사' },
+            ],
+        };
+
+        const QUIZ_DATA = [
+            { q: "제주도 '무사'의 뜻은?", opts: ["왜", "전사", "없음", "빨리"], ans: 0, exp: "'무사'는 '왜'라는 뜻입니다! 제주도 사투리의 가장 신기한 특징이에요." },
+            { q: "제주도에서 할아버지는?", opts: ["할아비", "하르방", "할배", "할님"], ans: 1, exp: "'하르방'은 제주도 사투리로 '할아버지'를 뜻합니다!" },
+            { q: "제주도 인사 '혼저옵서예'는?", opts: ["고마워요", "어서오세요", "안녕하세요", "미안해요"], ans: 1, exp: "'혼저옵서예'는 '어서오세요'라는 뜻입니다!" },
+            { q: "제주도에서 아버지는?", opts: ["아버이", "아방", "아비", "아붐"], ans: 1, exp: "'아방'은 제주도 사투리로 '아버지'를 뜻하는 가족 호칭입니다!" },
+            { q: "제주도 '어떵 살아 점수꽈'는?", opts: ["뭐 하니", "어떻게 지내니", "어디 가니", "언제 와"], ans: 1, exp: "'어떵 살아 점수꽈'는 '어떻게 지내십니까'라는 뜻입니다! 관광객들이 뽑은 신기한 표현!" },
+        ];
+
+        let state = {
+            tab: 'translator',
+            selectedRegion: 'gangwon',
+            matchRegion: 'gangwon',
+            blankRegion: 'gangwon',
+            dictRegion: 'gangwon',
+            quizIdx: 0,
+            quizScore: 0,
+            quizAnswered: false,
+            quizSelectedAnswer: null,
+            quizDone: false,
+        };
+
+        function translate(text, region) {
+            if (!text) return text;
+            let result = text.trim();
+            if (DICTIONARY[region] && DICTIONARY[region][result]) {
+                return DICTIONARY[region][result];
+            }
+            return result;
+        }
+
+        function init() {
+            initRegions('regionsContainer', 'selectedRegion');
+            initRegions('matchRegionContainer', 'matchRegion');
+            initRegions('blankRegionContainer', 'blankRegion');
+            initRegions('dictRegionContainer', 'dictRegion');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => switchTab(e.target.dataset.tab));
+            });
+            document.getElementById('inputText').addEventListener('input', updateTranslator);
+            document.getElementById('copyBtn').addEventListener('click', copyText);
+            updateTranslator();
+            renderQuiz();
+            renderMatching();
+            renderBlanks();
+            renderDictionary();
+        }
+
+        function initRegions(containerId, stateKey) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = REGIONS.map(r => `<button class="region-btn ${r.id === state[stateKey] ? 'active' : ''}" data-region="${r.id}"><div class="region-icon">${r.icon}</div><div class="region-name">${r.name}</div></button>`).join('');
+            container.querySelectorAll('.region-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    state[stateKey] = e.currentTarget.dataset.region;
+                    init();
+                });
+            });
+        }
+
+        function switchTab(tab) {
+            state.tab = tab;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.getElementById(tab).style.display = 'block';
+        }
+
+        function updateTranslator() {
+            const input = document.getElementById('inputText').value.trim();
+            const output = translate(input, state.selectedRegion);
+            const outputEl = document.getElementById('outputText');
+            const copyBtn = document.getElementById('copyBtn');
+            if (output && output !== input) {
+                outputEl.textContent = `"${output}"`;
+                copyBtn.style.display = 'block';
+            } else {
+                outputEl.textContent = '문장을 입력하세요!';
+                copyBtn.style.display = 'none';
+            }
+            const examples = EXAMPLES[state.selectedRegion];
+            if (examples) {
+                document.getElementById('examplesContainer').innerHTML = `<div class="example-title">📚 ${REGIONS.find(r => r.id === state.selectedRegion).name} 사투리 예시:</div>${examples.map(ex => `<div class="example-item"><span class="example-std">${ex.std}</span> → <span class="example-dialect">${ex.dialect}</span></div>`).join('')}`;
+            }
+        }
+
+        function copyText() {
+            const output = document.getElementById('outputText').textContent;
+            navigator.clipboard.writeText(output.replace(/"/g, ''));
+            const btn = document.getElementById('copyBtn');
+            btn.textContent = '✅ 복사됨!';
+            setTimeout(() => { btn.textContent = '📋 복사'; }, 1500);
+        }
+
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quizContent');
+            const q = QUIZ_DATA[state.quizIdx];
+            if (state.quizDone) {
+                quizContainer.innerHTML = `<div class="result"><div class="result-emoji">🏆</div><div class="result-title">퀴즈 완료!</div><div class="result-score">${QUIZ_DATA.length}문제 중 <span class="score-highlight">${state.quizScore}</span>문제 맞음!</div><button class="reset-btn" onclick="resetQuiz()">🔄 다시 풀기</button></div>`;
+                return;
+            }
+            quizContainer.innerHTML = `<div class="section"><div class="quiz-header"><span>문제 ${state.quizIdx + 1} / ${QUIZ_DATA.length}</span><span>점수: ${state.quizScore}</span></div><div class="quiz-question">Q. ${q.q}</div><div class="quiz-options">${q.opts.map((opt, i) => `<button class="option-btn" onclick="answerQuiz(${i})" ${state.quizAnswered ? 'disabled' : ''}>${i + 1}. ${opt}</button>`).join('')}</div>${state.quizAnswered ? `<div class="feedback"><div class="feedback-title">${state.quizSelectedAnswer === q.ans ? '✅ 정답!' : '❌ 틀렸어요!'}</div><div class="feedback-text">${q.exp}</div><button class="next-btn" onclick="nextQuiz()">${state.quizIdx + 1 === QUIZ_DATA.length ? '결과 확인' : '다음 문제 ➜'}</button></div>` : ''}</div>`;
+            if (state.quizAnswered) {
+                document.querySelectorAll('.option-btn').forEach((btn, i) => {
+                    btn.classList.remove('correct', 'wrong', 'disabled');
+                    if (i === q.ans) btn.classList.add('correct');
+                    else if (i === state.quizSelectedAnswer) btn.classList.add('wrong');
+                    else btn.classList.add('disabled');
+                });
+            }
+        }
+
+        function answerQuiz(idx) {
+            if (state.quizAnswered) return;
+            state.quizSelectedAnswer = idx;
+            state.quizAnswered = true;
+            if (idx === QUIZ_DATA[state.quizIdx].ans) {
+                state.quizScore++;
+            }
+            renderQuiz();
+        }
+
+        function nextQuiz() {
+            if (state.quizIdx + 1 < QUIZ_DATA.length) {
+                state.quizIdx++;
+                state.quizAnswered = false;
+                state.quizSelectedAnswer = null;
+            } else {
+                state.quizDone = true;
+            }
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            state.quizIdx = 0;
+            state.quizScore = 0;
+            state.quizAnswered = false;
+            state.quizSelectedAnswer = null;
+            state.quizDone = false;
+            renderQuiz();
+        }
+
+        function renderMatching() {
+            const pairs = MATCHING_PAIRS[state.matchRegion];
+            const container = document.getElementById('matchingGameContent');
+            const shuffledDialect = [...pairs].sort(() => Math.random() - 0.5);
+            container.innerHTML = `<div class="section"><div class="matching-grid"><div class="matching-column"><div style="font-weight: bold; margin-bottom: 10px;">표준어</div>${pairs.map((p) => `<button class="match-item" data-type="std" data-id="${p.id}">${p.std}</button>`).join('')}</div><div class="matching-column"><div style="font-weight: bold; margin-bottom: 10px;">사투리</div>${shuffledDialect.map((p) => `<button class="match-item" data-type="dialect" data-id="${p.id}">${p.dialect}</button>`).join('')}</div></div><div class="match-score" id="matchScore" style="display:none;"></div></div>`;
+            initMatchingGame();
+        }
+
+        function initMatchingGame() {
+            let selectedStd = null;
+            const pairs = MATCHING_PAIRS[state.matchRegion];
+            const matchedPairs = new Set();
+            document.querySelectorAll('.match-item').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const btn = e.currentTarget;
+                    const type = btn.dataset.type;
+                    const id = btn.dataset.id;
+                    if (btn.classList.contains('matched')) return;
+                    if (type === 'std') {
+                        document.querySelectorAll('.match-item[data-type="std"]').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selectedStd = id;
+                    } else {
+                        if (!selectedStd) return;
+                        if (selectedStd == id) {
+                            document.querySelectorAll(`.match-item[data-id="${id}"]`).forEach(b => {
+                                b.classList.remove('selected');
+                                b.classList.add('matched');
+                            });
+                            matchedPairs.add(parseInt(id));
+                            selectedStd = null;
+                            if (matchedPairs.size === pairs.length) {
+                                setTimeout(() => {
+                                    document.getElementById('matchScore').style.display = 'block';
+                                    document.getElementById('matchScore').innerHTML = `🎉 모두 맞췄어요! 완벽합니다!<button class="reset-match-btn" onclick="location.reload()">처음부터</button>`;
+                                }, 300);
+                            }
+                        } else {
+                            btn.classList.add('wrong');
+                            setTimeout(() => btn.classList.remove('wrong'), 500);
+                        }
+                    }
+                });
+            });
+        }
+
+        function renderBlanks() {
+            const sentences = BLANK_SENTENCES[state.blankRegion];
+            const container = document.getElementById('blankGameContent');
+            container.innerHTML = `<div class="section"><div class="blank-game">${sentences.map((s, i) => `<div style="margin: 15px 0;"><div>${s.sentence}</div><input type="text" class="blank-input" id="blank-${i}" placeholder="정답 입력"><button class="check-btn" onclick="checkBlank(${i}, '${s.blank}')">확인</button></div>`).join('')}</div></div>`;
+        }
+
+        function checkBlank(idx, answer) {
+            const input = document.getElementById(`blank-${idx}`);
+            if (input.value === answer) {
+                input.style.background = '#dcfce7';
+                input.style.borderColor = '#22c55e';
+            } else {
+                input.style.background = '#fee2e2';
+                input.style.borderColor = '#ef4444';
+            }
+        }
+
+        function renderDictionary() {
+            const words = DICTIONARY_DATA[state.dictRegion];
+            const container = document.getElementById('dictionaryContent');
+            container.innerHTML = `<div class="section"><div class="dictionary-grid">${words.map(w => `<div class="dict-card"><div class="dict-std">${w.std}</div><div class="dict-labels">${Object.entries(w.dialects).map(([region, dialect]) => `<span class="dict-label">${REGIONS.find(r => r.id === region).name}: ${dialect}</span>`).join('')}</div></div>`).join('')}</div></div>`;
+        }
+
+        init();
+    </script>
+</body>
+</html>
