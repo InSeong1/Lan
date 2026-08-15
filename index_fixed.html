@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신나는 팔도 사투리 탐험대!</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        .slide-up { animation: slideUp 0.3s ease-out; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // ===== 데이터 =====
+        const REGIONS = [
+            { id: 'seoul', name: '표준어(서울)', color: 'bg-slate-100', icon: '🏙️' },
+            { id: 'gangwon', name: '강원도', color: 'bg-green-100', icon: '🌲' },
+            { id: 'chungcheong', name: '충청도', color: 'bg-indigo-100', icon: '🌾' },
+            { id: 'gyeongsang', name: '경상도', color: 'bg-orange-100', icon: '🌊' },
+            { id: 'jeolla', name: '전라도', color: 'bg-yellow-100', icon: '🍚' },
+            { id: 'jeju', name: '제주도', color: 'bg-teal-100', icon: '🍊' },
+        ];
+
+        const RULES = [
+            { regex: /는\s*거\?$/, gangwon: '는 거우과?', chungcheong: '는 겨?', gyeongsang: '는 기가?', jeolla: '는 거여?', jeju: '는 거우꽈?' },
+            { regex: /어\?$/, gangwon: '우과?', chungcheong: '여?', gyeongsang: '노?', jeolla: '냐?', jeju: '수꽈?' },
+            { regex: /해\?$/, gangwon: '하우과?', chungcheong: '혀?', gyeongsang: '하나?', jeolla: '하냐?', jeju: '허멘?' },
+        ];
+
+        const QUIZ = [
+            { q: "제주도 사투리 '무사'의 뜻은?", opts: ["왜", "전사", "없음", "빨리"], ans: 0, exp: "'무사'는 '왜'라는 뜻입니다!" },
+            { q: "충청도 의문문 끝 '~겨?'는?", opts: ["문법오류", "존댓말", "가벼운 의문", "강조"], ans: 2, exp: "'~겨?'는 가벼운 의문을 나타내요!" },
+            { q: "'천지빼까리다'(경상도)는?", opts: ["없다", "많다", "맵다", "춥다"], ans: 1, exp: "'천지빼까리다'는 아주 많다는 뜻이에요!" },
+            { q: "'오메'(전라도)는?", opts: ["아따", "깜짝놀람", "시방", "거시기"], ans: 1, exp: "'오메'는 깜짝 놀랐을 때 쓰는 감탄사예요!" },
+            { q: "'마카'(강원도)는?", opts: ["여기", "저기", "모두", "조금"], ans: 2, exp: "'마카'는 '모두'라는 뜻입니다!" },
+        ];
+
+        // ===== 번역 함수 =====
+        function translate(text, region) {
+            if (!text || region === 'seoul') return text;
+            let result = text;
+            for (const rule of RULES) {
+                if (region in rule) {
+                    result = result.replace(rule.regex, rule[region]);
+                }
+            }
+            return result;
+        }
+
+        // ===== 번역기 =====
+        function Translator() {
+            const [input, setInput] = useState('');
+            const [region, setRegion] = useState('gangwon');
+            const [copied, setCopied] = useState(false);
+
+            const output = translate(input, region);
+            const currentRegion = REGIONS.find(r => r.id === region);
+
+            return (
+                <div className="space-y-6">
+                    <div className="bg-white rounded-3xl shadow-lg p-8">
+                        <h2 className="text-2xl font-bold text-slate-800 mb-4">표준어 입력</h2>
+                        <textarea
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            placeholder="예: 밥 먹었어?"
+                            className="w-full p-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:outline-none resize-none"
+                            rows="4"
+                        />
+                    </div>
+
+                    <div className="bg-white rounded-3xl shadow-lg p-8">
+                        <h2 className="text-2xl font-bold text-slate-800 mb-6">방언 선택</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            {REGIONS.map(r => (
+                                <button
+                                    key={r.id}
+                                    onClick={() => setRegion(r.id)}
+                                    className={`p-4 rounded-2xl font-bold transition-all ${region === r.id ? `${r.color} border-2 border-slate-400 shadow-md scale-105` : `${r.color} border-2 border-transparent`}`}
+                                >
+                                    <div className="text-2xl mb-1">{r.icon}</div>
+                                    <div className="text-sm">{r.name}</div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className={`rounded-3xl shadow-lg p-8 ${currentRegion?.color}`}>
+                        <h2 className="text-2xl font-bold mb-4 text-slate-800">{currentRegion?.icon} {currentRegion?.name}</h2>
+                        {output ? (
+                            <div className="bg-white/50 rounded-2xl p-6">
+                                <p className="text-3xl font-bold text-slate-800 mb-4">"{output}"</p>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(output);
+                                            setCopied(true);
+                                            setTimeout(() => setCopied(false), 2000);
+                                        }}
+                                        className="px-4 py-2 rounded-full font-bold bg-white/30 hover:bg-white/50 transition"
+                                    >
+                                        {copied ? '✅ 복사됨!' : '📋 복사'}
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <p className="text-slate-600">문장을 입력하세요!</p>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        // ===== 퀴즈 =====
+        function QuizApp() {
+            const [idx, setIdx] = useState(0);
+            const [score, setScore] = useState(0);
+            const [done, setDone] = useState(false);
+            const [sel, setSel] = useState(null);
+            const [answered, setAnswered] = useState(false);
+
+            const q = QUIZ[idx];
+
+            const handleAns = (i) => {
+                if (answered) return;
+                setSel(i);
+                setAnswered(true);
+                if (i === q.ans) setScore(score + 1);
+            };
+
+            const next = () => {
+                if (idx + 1 < QUIZ.length) {
+                    setIdx(idx + 1);
+                    setSel(null);
+                    setAnswered(false);
+                } else {
+                    setDone(true);
+                }
+            };
+
+            if (done) {
+                return (
+                    <div className="bg-white p-12 rounded-3xl shadow-xl text-center max-w-2xl mx-auto slide-up">
+                        <div className="text-6xl mb-6">🏆</div>
+                        <h2 className="text-3xl font-bold text-slate-800 mb-4">퀴즈 완료!</h2>
+                        <p className="text-xl text-slate-600 mb-6">
+                            {QUIZ.length}문제 중 <strong className="text-3xl text-orange-500">{score}</strong>문제 맞음!
+                        </p>
+                        <button
+                            onClick={() => {
+                                setIdx(0);
+                                setScore(0);
+                                setDone(false);
+                                setSel(null);
+                                setAnswered(false);
+                            }}
+                            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold"
+                        >
+                            🔄 다시
+                        </button>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="max-w-2xl mx-auto fade-in">
+                    <div className="bg-white rounded-3xl shadow-lg border-t-4 border-orange-400 overflow-hidden">
+                        <div className="bg-orange-50 p-6 flex justify-between">
+                            <span className="font-bold text-orange-600">문제 {idx + 1} / {QUIZ.length}</span>
+                            <span className="font-bold text-slate-500">점수: {score}</span>
+                        </div>
+                        <div className="p-8">
+                            <h3 className="text-2xl font-bold text-slate-800 mb-8">Q. {q.q}</h3>
+                            <div className="space-y-3">
+                                {q.opts.map((opt, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => handleAns(i)}
+                                        disabled={answered}
+                                        className={`w-full text-left p-4 rounded-xl text-lg font-medium transition-all ${
+                                            !answered
+                                                ? 'bg-white border-2 border-slate-200 hover:border-orange-300'
+                                                : i === q.ans
+                                                ? 'bg-green-100 border-2 border-green-500 text-green-800'
+                                                : i === sel
+                                                ? 'bg-red-100 border-2 border-red-400 text-red-700'
+                                                : 'bg-slate-50 border-2 border-slate-100 opacity-50'
+                                        }`}
+                                    >
+                                        {i + 1}. {opt}
+                                    </button>
+                                ))}
+                            </div>
+                            {answered && (
+                                <div className="mt-8 p-6 bg-slate-50 rounded-2xl slide-up">
+                                    <p className="text-lg font-bold mb-2">
+                                        {sel === q.ans ? '✅ 정답!' : '❌ 틀렸어요!'}
+                                    </p>
+                                    <p className="text-slate-700 mb-4">{q.exp}</p>
+                                    <button
+                                        onClick={next}
+                                        className="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-xl"
+                                    >
+                                        {idx + 1 === QUIZ.length ? '결과 보기' : '다음 ➜'}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // ===== 메인 앱 =====
+        function App() {
+            const [tab, setTab] = useState('translator');
+
+            return (
+                <div className="min-h-screen bg-sky-50 pb-12">
+                    <header className="bg-white shadow-sm pt-8 pb-6 px-4 text-center">
+                        <h1 className="text-4xl font-extrabold text-sky-800">🗺️ 팔도 사투리 탐험대!</h1>
+                        <p className="mt-3 text-slate-600">우리나라의 아름다운 지역 말을 배워보세요 🎒</p>
+                    </header>
+
+                    <div className="flex justify-center mt-6 px-4">
+                        <div className="bg-white rounded-full p-1 shadow-md inline-flex">
+                            <button
+                                onClick={() => setTab('translator')}
+                                className={`px-8 py-3 rounded-full font-bold transition-all ${
+                                    tab === 'translator' ? 'bg-sky-500 text-white' : 'text-slate-600'
+                                }`}
+                            >
+                                🗣️ 번역기
+                            </button>
+                            <button
+                                onClick={() => setTab('quiz')}
+                                className={`px-8 py-3 rounded-full font-bold transition-all ${
+                                    tab === 'quiz' ? 'bg-orange-500 text-white' : 'text-slate-600'
+                                }`}
+                            >
+                                🎯 퀴즈
+                            </button>
+                        </div>
+                    </div>
+
+                    <main className="max-w-4xl mx-auto px-4 mt-8">
+                        {tab === 'translator' && <Translator />}
+                        {tab === 'quiz' && <QuizApp />}
+                    </main>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
