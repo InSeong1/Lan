@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>명탐정 팩트체커 - 미디어 리터러시 교실</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter & Jua) -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Jua', sans-serif; }
+        .font-jua { font-family: 'Jua', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <header class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('toolbox')">
+                <span class="text-3xl">🕵️‍♂️</span>
+                <div>
+                    <h1 class="font-jua text-2xl tracking-wider">명탐정 팩트체커</h1>
+                </div>
+            </div>
+            <!-- 5개 메뉴 탭 버튼 -->
+            <nav class="flex flex-wrap gap-1 sm:gap-2 justify-center">
+                <button onclick="switchTab('toolbox')" id="nav-toolbox" class="px-3 py-1.5 rounded-lg font-jua text-sm bg-indigo-700 text-white transition hover:bg-indigo-500">1. 탐정의 도구상자</button>
+                <button onclick="switchTab('newsroom')" id="nav-newsroom" class="px-3 py-1.5 rounded-lg font-jua text-sm bg-indigo-800/60 text-indigo-100 transition hover:bg-indigo-500">2. 수상한 뉴스룸</button>
+                <button onclick="switchTab('adventure')" id="nav-adventure" class="px-3 py-1.5 rounded-lg font-jua text-sm bg-indigo-800/60 text-indigo-100 transition hover:bg-indigo-500">3. 팩트체크 대모험</button>
+                <button onclick="switchTab('report')" id="nav-report" class="px-3 py-1.5 rounded-lg font-jua text-sm bg-indigo-800/60 text-indigo-100 transition hover:bg-indigo-500">4. 우리 반 제보 센터</button>
+                <button onclick="switchTab('challenge')" id="nav-challenge" class="px-3 py-1.5 rounded-lg font-jua text-sm bg-indigo-800/60 text-indigo-100 transition hover:bg-indigo-500">5. 팩트체크 챌린지</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
+
+        <!-- ================= 1. 탐정의 도구상자 (기본 첫 화면) ================= -->
+        <section id="tab-toolbox" class="space-y-6">
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white shadow-md">
+                <h2 class="font-jua text-3xl mb-2">📚 팩트체크 판별 가이드</h2>
+                <p class="text-indigo-100">뉴스를 확인하기 전, 가짜 뉴스를 판별하는 탐정들의 3가지 핵심 필살기를 먼저 완벽히 익혀보세요!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+                    <span class="text-4xl">🔗</span>
+                    <h3 class="font-jua text-xl text-slate-800">1. URL 주소 꼼꼼히 보기</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">진짜 언론사 주소(.co.kr, .com, .go.kr)와 미묘하게 다른 가짜 주소(.co, .net, 가짜 블로그 주소)를 확인하세요. 교묘하게 알파벳을 바꿔 속이는 경우가 많습니다.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+                    <span class="text-4xl">📅</span>
+                    <h3 class="font-jua text-xl text-slate-800">2. 발행 일자 속지 않기</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">몇 년 전 발생했던 과거의 사건이나 사진을 마치 오늘 일어난 것처럼 날짜만 슬쩍 바꿔 올리는 경우가 많습니다. 반드시 최초 보도 날짜를 대조하세요!</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+                    <span class="text-4xl">👤</span>
+                    <h3 class="font-jua text-xl text-slate-800">3. 기자 및 출처 신뢰도 확인</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">기사를 쓴 기자 이름이 실제로 검색되는지, 혹은 공신력 있는 언론사나 정부 기관의 공식 입장인지 반드시 확인하는 습관을 들여야 합니다.</p>
+                </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <button onclick="switchTab('newsroom')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-jua px-8 py-3.5 rounded-xl shadow-md transition text-lg">
+                    🚀 도구 숙지 완료! 수상한 뉴스룸으로 이동하기
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= 2. 수상한 뉴스룸 ================= -->
+        <section id="tab-newsroom" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h2 class="font-jua text-3xl mb-2">📢 오늘의 핫이슈 피드</h2>
+                    <p class="text-amber-100">진짜 뉴스 속 숨어 있는 가짜 뉴스를 찾아내세요! 기사 카드를 눌러 상세 내용을 확인하고 팩트체크 모험을 시작할 수 있습니다.</p>
+                </div>
+                <div class="mt-4 md:mt-0 bg-white/25 backdrop-blur px-4 py-2 rounded-xl text-sm font-semibold">
+                    🔥 탐정 미션 기사: 총 10건 대기중
+                </div>
+            </div>
+
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 동적 렌더링 -->
+            </div>
+        </section>
+
+        <!-- ================= 3. 팩트체크 대모험 ================= -->
+        <section id="tab-adventure" class="hidden space-y-6">
+            <div id="adventure-empty" class="bg-white rounded-2xl p-12 text-center shadow-sm border border-slate-200">
+                <span class="text-6xl mb-4 inline-block">🔍</span>
+                <h3 class="font-jua text-2xl text-slate-700 mb-2">선택된 기사가 없습니다!</h3>
+                <p class="text-slate-500 mb-6">‘2. 수상한 뉴스룸’으로 돌아가 검증할 기사를 먼저 선택해 주세요.</p>
+                <button onclick="switchTab('newsroom')" class="bg-indigo-600 text-white font-jua px-6 py-3 rounded-xl shadow hover:bg-indigo-700 transition">뉴스룸으로 가기</button>
+            </div>
+
+            <div id="adventure-content" class="hidden space-y-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-bold">심층 팩트체크 미션 진행중</span>
+                        <h3 id="adv-title" class="font-jua text-xl mt-2 text-slate-800">기사 제목 영역</h3>
+                    </div>
+                    <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+                        <div class="text-sm font-semibold text-slate-600">단서 발견: <span id="clue-count">0</span> / 3</div>
+                        <div class="w-32 bg-slate-200 h-3 rounded-full overflow-hidden">
+                            <div id="clue-progress" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs gap-2 border-b pb-3 border-slate-100">
+                            <div onclick="checkClue('author')" id="interactive-author" class="cursor-pointer group flex items-center gap-1 bg-indigo-50 hover:bg-indigo-100 p-2 rounded-lg border border-indigo-200 transition">
+                                <span class="font-bold text-indigo-700">언론사/출처:</span>
+                                <span id="adv-press" class="text-indigo-900 font-semibold underline">언론사명</span>
+                                <span id="badge-author-inline" class="ml-2 text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-bold">미확인</span>
+                            </div>
+                            
+                            <div onclick="checkClue('date')" id="interactive-date" class="cursor-pointer group flex items-center gap-1 bg-red-50 hover:bg-red-100 p-2 rounded-lg border border-red-200 transition">
+                                <span class="font-bold text-red-600">발행일:</span>
+                                <span id="adv-date" class="text-red-700 font-semibold underline">발행일 정보</span>
+                                <span id="badge-date-inline" class="ml-2 text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-bold">미확인</span>
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl overflow-hidden bg-slate-900 h-64 flex items-center justify-center border border-slate-200 relative shadow-inner">
+                            <div id="adv-img-container" class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-indigo-900 to-slate-900 text-white">
+                                <span id="adv-img-icon" class="text-5xl mb-2">📰</span>
+                                <h5 id="adv-img-title" class="font-jua text-xl text-amber-300">뉴스 보도 사진</h5>
+                                <p class="text-xs text-slate-300 mt-1">현장 취재 및 증거 자료 화면</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <h4 class="font-jua text-lg text-slate-700">📰 상세 보도 내용 (전문)</h4>
+                            <p id="adv-body" class="text-slate-700 leading-relaxed text-sm sm:text-base whitespace-pre-line bg-slate-50 p-5 rounded-xl border border-slate-100"></p>
+                        </div>
+                        
+                        <div onclick="checkClue('url')" id="interactive-url" class="cursor-pointer bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🔗</span>
+                                <div>
+                                    <div class="font-jua text-amber-900 text-sm">기사 접속 도메인(URL) 주소 확인하기</div>
+                                    <div id="adv-url-text" class="text-xs text-amber-700 font-mono">https://... (클릭하여 주소 검증)</div>
+                                </div>
+                            </div>
+                            <span id="badge-url-inline" class="bg-slate-200 text-slate-600 text-xs px-2.5 py-1 rounded-full font-bold">미확인</span>
+                        </div>
+
+                        <div id="clue-feedback-box" class="hidden bg-indigo-50 border border-indigo-200 rounded-xl p-4 space-y-2">
+                            <h5 class="font-jua text-indigo-800 text-sm flex items-center gap-1.5"><span>💡</span> 탐정의 실시간 단서 노트</h5>
+                            <div id="clue-feedback-text" class="text-xs sm:text-sm text-indigo-900 leading-relaxed"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="font-jua text-lg text-slate-800 mb-2 flex items-center gap-2"><span>🎯</span> 탐정 미션 가이드</h4>
+                            <p class="text-xs text-slate-500 mb-4">위의 기사 화면에서 다음 요소를 직접 클릭해 검증하세요!</p>
+                            
+                            <div class="space-y-3 text-xs text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-indigo-600 font-bold">1.</span>
+                                    <p>상단의 <strong class="text-indigo-700">언론사/출처 박스</strong>를 클릭하여 실제 존재하는 기자·기관인지 확인하세요.</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-indigo-600 font-bold">2.</span>
+                                    <p>상단의 <strong class="text-red-600">발행일 박스</strong>를 클릭하여 오래된 과거 기사 재탕인지 대조하세요.</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-indigo-600 font-bold">3.</span>
+                                    <p>본문 하단의 <strong class="text-amber-700">URL 주소 배너</strong>를 클릭하여 사칭 도메인인지 검증하세요.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="verdict-container" class="pt-4 border-t border-slate-100">
+                            <button disabled onclick="openVerdictModal()" id="btn-verdict" class="w-full bg-slate-200 text-slate-400 font-jua py-3 rounded-xl cursor-not-allowed transition">
+                                🔒 단서를 모두 찾으면 열립니다
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 4. 우리 반 제보 센터 (수정 및 고도화 버전) ================= -->
+        <section id="tab-report" class="hidden space-y-6">
+            <!-- 상단 헤더 & 컨트롤 패널 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-4 border-slate-100">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">📮</span>
+                            <h2 class="font-jua text-2xl text-slate-800">우리 반 제보 센터</h2>
+                            <span class="bg-indigo-100 text-indigo-700 text-xs px-2.5 py-0.5 rounded-full font-bold">집단지성 팩트체크</span>
+                        </div>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1">유튜브, 틱톡, SNS, 단톡방에서 발견한 수상한 소식을 제보하고, AI 분석 및 친구들과 실시간 투표로 함께 검증해보세요!</p>
+                    </div>
+                    <button onclick="openReportModal()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-jua px-5 py-2.5 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm shrink-0">
+                        <i class="fa-solid fa-paper-plane"></i> 의심 기사 제보하기
+                    </button>
+                </div>
+
+                <!-- 검색 및 필터 태그 -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <div class="flex flex-wrap gap-1.5 w-full sm:w-auto">
+                        <button onclick="setReportFilter('all')" id="filter-all" class="px-3 py-1.5 rounded-lg text-xs font-jua bg-indigo-600 text-white transition">전체보기</button>
+                        <button onclick="setReportFilter('checking')" id="filter-checking" class="px-3 py-1.5 rounded-lg text-xs font-jua bg-slate-100 text-slate-600 hover:bg-slate-200 transition">🔍 검증 대기중</button>
+                        <button onclick="setReportFilter('fake')" id="filter-fake" class="px-3 py-1.5 rounded-lg text-xs font-jua bg-slate-100 text-slate-600 hover:bg-slate-200 transition">🚨 가짜뉴스 의심</button>
+                        <button onclick="setReportFilter('real')" id="filter-real" class="px-3 py-1.5 rounded-lg text-xs font-jua bg-slate-100 text-slate-600 hover:bg-slate-200 transition">✅ 진짜 뉴스</button>
+                    </div>
+
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" id="reportSearchInput" oninput="renderReports()" placeholder="제보 제목 또는 키워드 검색..." class="w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-indigo-500">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 제보글 리스트 그리드 -->
+            <div id="report-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 동적 렌더링 -->
+            </div>
+        </section>
+
+        <!-- ================= 5. 팩트체크 챌린지 ================= -->
+        <section id="tab-challenge" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h2 class="font-jua text-3xl mb-2">🏆 팩트체크 실력 뽐내기 챌린지</h2>
+                    <p class="text-emerald-100">배운 내용을 총동원해 O/X 퀴즈(총 7문제)를 풀고 명예 탐정 인증을 완료하세요!</p>
+                </div>
+                <div class="mt-4 md:mt-0 bg-white/20 backdrop-blur px-4 py-2 rounded-xl text-sm font-semibold">
+                    ⭐ 명예 탐정 테스트
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-6">
+                <div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold">O/X 퀴즈 미션</span>
+                        <span id="quiz-progress-text" class="text-xs text-slate-500 font-semibold">문제 1 / 7</span>
+                    </div>
+                    <h3 id="quiz-question" class="font-jua text-2xl text-slate-800 mb-4 leading-snug">퀴즈 질문 내용이 여기에 들어갑니다.</h3>
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm font-medium mb-4"></div>
+                </div>
+                <div id="quiz-btn-container" class="grid grid-cols-2 gap-4">
+                    <button onclick="answerQuiz(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-jua py-4 rounded-xl shadow transition text-xl">⭕ O (진실)</button>
+                    <button onclick="answerQuiz(false)" class="bg-rose-500 hover:bg-rose-600 text-white font-jua py-4 rounded-xl shadow transition text-xl">❌ X (거짓)</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 판정 팝업 모달 -->
+    <div id="verdict-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-xl">
+            <span class="text-5xl">⚖️</span>
+            <h3 class="font-jua text-2xl text-slate-800">최종 판정의 시간</h3>
+            <p class="text-slate-600 text-sm">3가지 단서를 모두 모았습니다! 이 뉴스는 믿을 수 있는 진짜인가요, 아니면 가짜인가요?</p>
+            <div class="grid grid-cols-2 gap-4 pt-2">
+                <button onclick="submitVerdict(false)" class="bg-red-500 text-white font-jua py-3 rounded-xl shadow hover:bg-red-600 transition">🚨 가짜 뉴스</button>
+                <button onclick="submitVerdict(true)" class="bg-emerald-500 text-white font-jua py-3 rounded-xl shadow hover:bg-emerald-600 transition">✅ 진짜 뉴스</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 판정 결과 및 근거 해설 모달 -->
+    <div id="result-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+            <div id="result-icon" class="text-center text-5xl">🎉</div>
+            <h3 id="result-title" class="font-jua text-2xl text-center text-slate-800">정답입니다!</h3>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                <h4 class="font-jua text-indigo-700 text-sm">📌 왜 이런 판정이 내려졌을까요? (핵심 판단 근거)</h4>
+                <p id="result-reason" class="text-xs sm:text-sm text-slate-700 leading-relaxed"></p>
+            </div>
+            <button onclick="closeResultModal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-jua py-3 rounded-xl transition shadow">
+                확인 완료 (챌린지 코너로 가기)
+            </button>
+        </div>
+    </div>
+
+    <!-- 제보 작성 모달 -->
+    <div id="report-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b pb-3 border-slate-100">
+                <h3 class="font-jua text-2xl text-slate-800 flex items-center gap-2">
+                    <span class="text-indigo-600">📮</span> 수상한 정보 제보하기
+                </h3>
+                <button onclick="closeReportModal()" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">제보자 탐정 닉네임</label>
+                    <input type="text" id="rep-author" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500" placeholder="예: 고헌초 5학년 탐정">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">기사/소식 제목</label>
+                    <input type="text" id="rep-title" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500" placeholder="예: 틱톡에서 유행하는 이상한 소문">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">원본 링크 (URL 주소)</label>
+                    <input type="text" id="rep-link" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 font-mono text-xs" placeholder="https://youtube.com/... 또는 관련 링크">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">의심스러운 이유 및 분석 내용</label>
+                    <textarea id="rep-reason" rows="3" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500" placeholder="왜 가짜 같거나 의심스러운지 이유를 적어주세요."></textarea>
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeReportModal()" class="px-4 py-2 text-slate-500 font-jua text-sm">취소</button>
+                <button onclick="saveReport()" class="bg-indigo-600 text-white font-jua px-5 py-2 rounded-xl text-sm shadow hover:bg-indigo-700">제보 등록 완료</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI 제보 팩트체크 분석 결과 모달 -->
+    <div id="ai-report-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-indigo-100">
+            <div class="flex justify-between items-center border-b pb-3 border-indigo-100">
+                <div class="flex items-center gap-2">
+                    <span class="w-9 h-9 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-robot"></i></span>
+                    <h3 class="font-jua text-xl text-slate-800">AI 탐정 수사관 팩트체크 보고서</h3>
+                </div>
+                <button onclick="closeAiReportModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="ai-report-content" class="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3">
+                <!-- AI 수사 결과 dynamic output -->
+            </div>
+
+            <button onclick="closeAiReportModal()" class="w-full bg-indigo-600 text-white font-jua py-2.5 rounded-xl shadow hover:bg-indigo-700 transition">
+                수사 결과 확인 완료
+            </button>
+        </div>
+    </div>
+
+    <!-- 커스텀 시스템 알림 모달 (alert 대체용) -->
+    <div id="toast-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 text-center space-y-3 shadow-xl">
+            <div id="toast-icon" class="text-4xl text-amber-500"><i class="fa-solid fa-circle-info"></i></div>
+            <h4 id="toast-title" class="font-jua text-lg text-slate-800">알림</h4>
+            <p id="toast-message" class="text-xs text-slate-600 leading-relaxed"></p>
+            <button onclick="closeToastModal()" class="w-full bg-indigo-600 text-white font-jua py-2 rounded-xl text-sm shadow">확인</button>
+        </div>
+    </div>
+
+    <script>
+        const newsList = [
+            {
+                id: 1,
+                title: "🚨 고헌초등학교 운동장에 대형 싱크홀 발생? 전교생 긴급 대피 소동!",
+                press: "데일리뉴스24",
+                pressUrl: "fake-news.co.kr",
+                date: "2021년 3월 5일",
+                thumbnail: { icon: "🕳️", title: "운동장 싱크홀 재난 속보", bg: "from-red-900 to-slate-900", text: "text-red-300" },
+                body: "오늘 오전 8시 30분경, 고헌초등학교 운동장 한가운데에 지름 10m, 깊이 5m에 달하는 거대한 싱크홀(지반 침하)이 발생하여 등교하던 전교생과 교직원들이 급히 체육관으로 긴급 대피하는 소동이 벌어졌습니다.\n\n소방당국과 울산시청 안전재난과 측은 즉각 현장에 출동하여 폴리스라인을 설치하고 정확한 사고 원인을 조사 중입니다. 학교 측은 학부모들에게 긴급 문자 메시지를 발송하였으며, 안전 진단이 완료될 때까지 당분간 운동장 사용을 전면 금지한다고 발표했습니다. 학부모들은 불안감에 떨며 학교 주변으로 모여들고 있습니다.",
+                isFake: true,
+                verdictReason: "이 기사는 명백한 '가짜 뉴스'입니다. ① URL 주소가 공신력 있는 언론사가 아닌 'fake-news.co.kr'이라는 개인 가짜 도메인이며, ② 발행일이 오래전 타 지역 학교의 사고 사진을 그대로 도용한 재탕 기사이고, ③ 기사에 언급된 담당 기자 이름이 존재하지 않는 허위 인물로 판명되었습니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 정상적인 언론사 주소(.com, .kr)가 아닌 'fake-news.co.kr'이라는 수상한 개인 가짜 도메인입니다. 출처가 불분명한 사칭 사이트입니다.",
+                    date: "【발행 일자 대조 완료】 기사에 적힌 발행일을 검색해 보니, 실제로는 몇 년 전 다른 지역 학교에서 발생했던 과거 사건의 사진과 기사를 그대로 도용한 것입니다.",
+                    author: "【출처/기자 검증 완료】 기사를 작성한 '김기자'라는 이름은 언론사 기자 명부나 포털 인물 정보 어디에도 존재하지 않는 허위 가짜 이름입니다."
+                }
+            },
+            {
+                id: 2,
+                title: "✨ 교육부 공식 발표: 올해 2학기부터 전국 초등학교 '주 4일제 수업' 전면 도입 확정",
+                press: "에듀투데이 공식뉴스",
+                pressUrl: "edu-gov-kr.net",
+                date: "2026년 6월 12일",
+                thumbnail: { icon: "🏫", title: "초등학교 주 4일제 수업 확정", bg: "from-blue-900 to-slate-900", text: "text-blue-300" },
+                body: "교육부는 오늘 오전 정부서울청사에서 긴급 브리핑을 열고, 초등학생들의 학업 스트레스 해소와 창의력 및 예술 활동 시간 보장을 위해 다가오는 2학기부터 전국 모든 초등학교를 대상으로 '주 4일제 수업'을 전면 도입한다고 공식 발표했습니다.\n\n이에 따라 매주 금요일은 학교에 등교하지 않고 온라인 가정 학습이나 자율 체험학습으로 대체되며, 급식실 운영 및 방과 후 학교 일정 역시 전면 조정됩니다. 교육계와 학부모 단체는 폭발적인 반응을 보이며 찬반 토론을 이어가고 있습니다. 학생들은 환호성을 지르고 있으나 맞벌이 가정에서는 대책 마련을 촉구하고 있습니다.",
+                isFake: true,
+                verdictReason: "이 기사는 학생들이 환호할 만한 내용을 담은 '가짜 뉴스'입니다. ① 정부 기관 주소인 'go.kr'을 교묘하게 변형한 'edu-gov-kr.net' 사칭 도메인을 사용했고, ② 교육부 공식 누리집 공문이나 브리핑 기록이 전혀 존재하지 않으며, ③ 출처가 검증되지 않은 가상의 보도자료입니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 대한민국 정부 및 교육부 공식 주소는 'moe.go.kr'입니다. 하지만 이 기사의 주소는 'edu-gov-kr.net'으로, 정부 기관인 것처럼 눈속임하는 가짜 도메인입니다.",
+                    date: "【발행 일자 대조 완료】 신학기나 특정 시즌마다 학생들이 기대할 만한 내용을 담아 상습적으로 유포되는 가짜 보도자료의 전형적인 패턴과 일치합니다.",
+                    author: "【출처/기자 검증 완료】 교육부 대변인실이나 공식 언론 보도 매체 어디에도 해당 공문을 작성하거나 취재한 기록이 전혀 없는 조작된 기사입니다."
+                }
+            },
+            {
+                id: 3,
+                title: "🌱 울산시, 어린이 보호구역 내 첨단 'AI 스마트 횡단보도' 50개소 추가 설치 완료",
+                press: "울산매일뉴스",
+                pressUrl: "iusm.co.kr",
+                date: "2026년 6월 12일",
+                thumbnail: { icon: "🚦", title: "AI 스마트 횡단보도 설치", bg: "from-emerald-900 to-slate-900", text: "text-emerald-300" },
+                body: "울산시는 어린이 등하굣길 교통사고를 원천 차단하기 위해 관내 초등학교 주변 스쿨존 50개소에 최신 AI 기반 '스마트 횡단보도 시스템'을 확대 설치 완료했다고 공식 발표했습니다.\n\n이번에 도입된 시스템은 보행자가 적색 신호일 때 차도 안쪽으로 넘어오면 센서가 이를 감지하여 음성으로 경고를 송출하며, 운전자에게는 LED 바닥 신호등과 전광판을 통해 보행자 존재를 시각적으로 강력하게 경고합니다. 시 관계자는 어린이 안전을 위한 인프라를 지속적으로 확충해 나갈 방침이라고 밝혔습니다.",
+                isFake: false,
+                verdictReason: "이 기사는 철저한 사실에 기반한 '진짜 뉴스'입니다. ① 울산 지역 공인 언론사의 정식 도메인(iusm.co.kr)을 사용했고, ② 울산시청 교통정책과의 실제 공식 보도자료와 내용이 정확히 일치하며, ③ 실제 취재한 전문 기자의 이름과 연락처가 투명하게 공개되어 있습니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 실제 울산 지역에 등록된 신뢰할 수 있는 공인 언론사의 공식 도메인과 정확히 일치합니다.",
+                    date: "【발행 일자 대조 완료】 울산시청 공식 보도자료 배포 시간과 정확히 일치하는 최신 정보입니다.",
+                    author: "【출처/기자 검증 완료】 울산시 출입 기자단 소속의 실명 기자가 직접 현장을 취재하고 시청 공식 입장을 받아 작성한 신뢰도 높은 기사입니다."
+                }
+            },
+            {
+                id: 4,
+                title: "🐕 울산대공원 동물원 지하에서 백악기 '공룡 알 화석' 대거 발굴! 시민 전면 공개",
+                press: "코리아타임스뉴스",
+                pressUrl: "korea-times-news.co",
+                date: "2023년 5월 10일",
+                thumbnail: { icon: "🦖", title: "대공원 공룡 화석 발굴", bg: "from-amber-900 to-slate-900", text: "text-amber-300" },
+                body: "울산대공원 동물원 부속 시설 확장 공사를 진행하던 중 지하 5m 지점에서 백악기 시대 것으로 추정되는 완벽한 보존 상태의 공룡 알 화석 20여 개가 무더기로 출토되었습니다.\n\n문화재청 고고학 연구팀과 국립자연사박물관 공동 조사단은 즉각 현장 보존 조치 및 정밀 발굴 조사에 착수했으며, 화석의 학술적 가치가 매우 높다고 평가했습니다. 연구팀은 다음 달부터 임시 특별 전시관을 설치하여 일반 시민들에게 화석 실물을 전면 공개할 예정이라고 밝혔습니다. 지역 주민들과 관람객들의 기대감이 폭발하고 있습니다.",
+                isFake: true,
+                verdictReason: "이 기사는 흥미를 유발하기 위해 지어낸 '가짜 뉴스'입니다. ① 유명 언론사 이름을 흉내 낸 'korea-times-news.co'라는 개인 가짜 웹사이트이며, ② 발행일이 오래전으로 현재 시점과 맞지 않고, ③ 문화재청 공식 발굴 기록에 전혀 존재하지 않습니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 유명 언론사 이름을 교묘하게 흉내 낸 'korea-times-news.co'라는 사칭 개인 웹사이트 주소입니다.",
+                    date: "【발행 일자 대조 완료】 발행일이 꽤 오래전 과거로 되어 있어 현재 시점과는 전혀 맞지 않는 정보입니다.",
+                    author: "【출처/기자 검증 완료】 문화재 전문 기자나 고고학 학술 연구소의 공식 배포 자료가 아닌, 정체 모를 익명의 블로그형 작성자가 지어낸 글입니다."
+                }
+            },
+            {
+                id: 5,
+                title: "📚 울산광역시교육청, 초등학생 독서 마라톤 대회 및 학교 도서관 지원 확대",
+                press: "울산교육신문",
+                pressUrl: "use.go.kr",
+                date: "2026년 6월 12일",
+                thumbnail: { icon: "📖", title: "초등학생 독서 마라톤 대회", bg: "from-purple-900 to-slate-900", text: "text-purple-300" },
+                body: "울산광역시교육청은 독서의 계절을 맞아 관내 초등학생들의 인문학적 소양 함양과 올바른 독서 습관 형성을 위한 '제12회 울산 어린이 독서 마라톤 대회'를 개최한다고 공식 발표했습니다.\n\n이번 대회는 초등 저학년부와 고학년부로 나누어 진행되며, 목표 독서 페이지를 완주한 학생들에게는 울산광역시교육감 명의의 공식 인증서가 수여됩니다. 또한 교육청은 각급 학교 도서관에 신간 도서 구입비를 추가 지원하여 학생들이 언제든지 양질의 책을 읽을 수 있는 환경을 조성하겠다고 밝혔습니다.",
+                isFake: false,
+                verdictReason: "이 기사는 철저한 사실에 기반한 '진짜 뉴스'입니다. ① 울산교육청 및 공공기관 공식 도메인(.go.kr) 주소를 사용했고, ② 실제 교육청 공문 및 행사 일정과 완벽히 일치하며, ③ 담당 교육 연구사의 실명 인터뷰가 포함되어 있습니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 교육청 및 공공기관이 사용하는 신뢰할 수 있는 정부 공인 도메인(.go.kr) 주소입니다.",
+                    date: "【발행 일자 대조 완료】 최근 등록된 보도 자료로, 실제 교육청 행사 일정과 정확히 일치합니다.",
+                    author: "【출처/기자 검증 완료】 울산교육청 대변인실 및 초등교육지원과에서 공식 배포한 신뢰도 100%의 공공 보도자료입니다."
+                }
+            },
+            {
+                id: 6,
+                title: "🍕 학교 급식실에 글로벌 피자 브랜드 입점? 매주 수요일 피자 무제한 제공 논란",
+                press: "학교뉴스네트워크",
+                pressUrl: "school-news.net",
+                date: "2022년 9월 1일",
+                thumbnail: { icon: "🍕", title: "급식실 피자 브랜드 입점", bg: "from-orange-900 to-slate-900", text: "text-orange-300" },
+                body: "교육부는 전국 초중고등학교 영양실과 협약을 맺고, 학생들의 급식 만족도를 높이기 위해 유명 피자 프랜차이즈 업체들과 계약을 체결하여 오는 10월부터 매주 수요일마다 전교생에게 피자를 무제한으로 제공한다고 발표했습니다.\n\n이에 따라 각 학교 급식실에는 대형 화덕 오븐 시설이 추가 설치되며, 영양사 협회와 학부모 비상대책위원회는 학생 건강 및 예산 낭비 우려를 제기하며 강력 반발하고 있습니다. 학생들은 대환영하며 급식 시간을 손꼽아 기다리고 있습니다.",
+                isFake: true,
+                verdictReason: "이 기사는 학생들이 혹할 만한 내용을 담은 '가짜 뉴스'입니다. ① 공인된 언론사가 아닌 개인 커뮤니티성 도메인인 'school-news.net'을 사용했고, ② 학교 급식 예산 및 영양 기준에 전혀 맞지 않는 허위 보도자료입니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 공인된 언론사나 교육 기관 도메인이 아닌 'school-news.net'이라는 사칭 커뮤니티 도메인입니다.",
+                    date: "【발행 일자 대조 완료】 몇 년 전 인터넷에서 유행했던 오래된 만우절 장난성 게시글을 재탕한 것입니다.",
+                    author: "【출처/기자 검증 완료】 학교 급식 정책을 담당하는 교육부나 영양 교사 협회 공식 입장에 전혀 근거하지 않은 조작 기사입니다."
+                }
+            },
+            {
+                id: 7,
+                title: "🚀 울산 태화강 국가정원에 민간 우주선 발사장 건설 추진! 화성 탐사선 발사 예정",
+                press: "울산우주경제신문",
+                pressUrl: "ulsan-space.co",
+                date: "2026년 1월 1일",
+                thumbnail: { icon: "🚀", title: "태화강 우주선 발사장 건설", bg: "from-indigo-900 to-slate-900", text: "text-indigo-300" },
+                body: "울산시는 세계적인 우주 항공 도시로 도약하기 위해 태화강 국가정원 잔디광장 부지에 대형 민간 우주선 발사장을 건설한다고 전격 발표했습니다. 이번 프로젝트에는 글로벌 우주 기업이 대거 참여합니다.\n\n내년 봄에는 첫 번째 화성 탐사 로켓이 태화강 상공을 가르며 발사될 예정이며, 울산 시민들은 앞으로 집 앞에서 우주선 발사 광경을 직관할 수 있게 됩니다. 환경 단체들은 철새 도래지 보호를 요구하며 대책 마련을 촉구하고 있습니다.",
+                isFake: true,
+                verdictReason: "이 기사는 터무니없는 내용을 담은 '가짜 뉴스'입니다. ① 신뢰할 수 없는 개인 도메인(.co)을 사용했고, ② 국가정원에 우주선 발사장을 짓는 것은 지리적·법적으로 불가능한 허황된 이야기입니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 정체 불명의 사칭 도메인인 'ulsan-space.co'를 사용하여 공신력이 전혀 없습니다.",
+                    date: "【발행 일자 대조 완료】 새해 첫날 사람들의 호기심을 끌기 위해 지어낸 가상의 상상 소설에 가까운 글입니다.",
+                    author: "【출처/기자 검증 완료】 울산시청 우주항공부서나 과학기술정보통신부 공식 기록에 전혀 존재하지 않는 가짜 기자명의 글입니다."
+                }
+            },
+            {
+                id: 8,
+                title: "🌳 울산시, 도심 속 생태 휴식 공간 '태화강 국가정원 편의 시설' 대폭 개선",
+                press: "울산경제신문",
+                pressUrl: "ulse.co.kr",
+                date: "2026년 6월 10일",
+                thumbnail: { icon: "🌳", title: "태화강 국가정원 편의 개선", bg: "from-teal-900 to-slate-900", text: "text-teal-300" },
+                body: "울산시는 시민들과 관광객이 많이 찾는 태화강 국가정원의 노후된 쉼터와 편의 시설을 대폭 정비하고, 친환경 자전거 대여소 및 그늘막을 추가 설치했다고 밝혔습니다.\n\n시 관계자는 국가정원을 찾는 방문객들이 보다 쾌적하고 편안하게 자연을 즐길 수 있도록 지속적인 환경 개선 사업을 펼칠 예정이며, 다가오는 여름철을 맞아 관람객 편의에 만전을 기하겠다고 강조했습니다.",
+                isFake: false,
+                verdictReason: "이 기사는 사실에 기반한 '진짜 뉴스'입니다. ① 공인된 울산 지역 언론사 도메인(ulse.co.kr)을 사용했고, ② 울산시청 정원도시과 공식 보도자료 내용과 정확히 일치합니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 실제 등록되어 있는 울산 지역 공인 언론사의 공식 도메인 주소입니다.",
+                    date: "【발행 일자 대조 완료】 울산시청의 최근 정원 관리 사업 발표 일정과 일치하는 최신 뉴스입니다.",
+                    author: "【출처/기자 검증 완료】 시청 출입 기자가 직접 취재하여 작성한 신뢰도 높은 정식 보도 기사입니다."
+                }
+            },
+            {
+                id: 9,
+                title: "🍦 전국 초등학교 급식실에 '매일 아이스크림 자판기' 무상 설치 완료",
+                press: "초등학생일보",
+                pressUrl: "elementary-news.net",
+                date: "2026년 5월 5일",
+                thumbnail: { icon: "🍦", title: "초등학교 아이스크림 자판기", bg: "from-pink-900 to-slate-900", text: "text-pink-300" },
+                body: "어린이날을 맞아 교육부는 전국 모든 초등학교 급식실 로비에 고급 아이스크림을 언제든지 무료로 뽑아 먹을 수 있는 '스마트 아이스크림 자판기'를 전면 설치했다고 발표했습니다.\n\n학생들은 학생증 바코드를 찍기만 하면 하루에 두 개씩 원하는 아이스크림을 공짜로 먹을 수 있습니다. 치과의사 협회는 충치 예방을 걱정하며 우려를 표했으나 학생들은 엄청난 환호성을 지르며 대환영하고 있습니다.",
+                isFake: true,
+                verdictReason: "이 기사는 아이들의 로망을 자극하는 '가짜 뉴스'입니다. ① 교육부나 학교 관련 공식 주소가 아닌 비공인 커뮤니티 주소(.net)이며, ② 급식 예산으로 아이스크림 자판기를 설치한다는 발표는 정부 공식 기록에 없습니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 교육 기관 공식 주소가 아닌 일반 비공인 커뮤니티형 도메인 주소입니다.",
+                    date: "【발행 일자 대조 완료】 어린이날 시즌에 맞춰 학생들이 좋아할 만한 내용을 가짜로 지어 유포한 게시글입니다.",
+                    author: "【출처/기자 검증 완료】 교육부 공식 보도자료나 학교 영양 정책 어디에도 존재하지 않는 가상의 조작 기사입니다."
+                }
+            },
+            {
+                id: 10,
+                title: "💻 울산시교육청, 미래 인재 양성을 위한 '초등학생 코딩 및 소프트웨어 캠프' 개최",
+                press: "울산매일",
+                pressUrl: "iusm.co.kr",
+                date: "2026년 6월 11일",
+                thumbnail: { icon: "💻", title: "초등학생 코딩 소프트웨어 캠프", bg: "from-cyan-900 to-slate-900", text: "text-cyan-300" },
+                body: "울산광역시교육청은 관내 초등학생들을 대상으로 디지털 역량을 키우고 논리적 사고력을 함양하기 위한 '여름방학 초등 소프트웨어(SW) 코딩 캠프'를 개최한다고 공식 안내했습니다.\n\n이번 캠프는 인공지능(AI)과 로봇 코딩 기초 과정을 중심으로 진행되며, 전문 강사진의 지도 아래 학생들이 직접 코드를 짜고 로봇을 움직여보는 체험형 프로그램으로 구성됩니다. 교육청은 미래 사회를 이끌어갈 디지털 인재 양성에 아낌없는 지원을 약속했습니다.",
+                isFake: false,
+                verdictReason: "이 기사는 사실에 기반한 '진짜 뉴스'입니다. ① 공인 언론사 도메인(iusm.co.kr)을 사용했고, ② 울산교육청 미래교육과 실제 행사 안내 공지와 완벽히 일치합니다.",
+                clues: {
+                    url: "【URL 주소 확인 완료】 신뢰할 수 있는 지역 공인 언론사의 정식 도메인 주소입니다.",
+                    date: "【발행 일자 대조 완료】 울산교육청의 최근 여름방학 교육 프로그램 일정과 정확히 일치합니다.",
+                    author: "【출처/기자 검증 완료】 교육청 출입 전문 기자가 공식 공문을 바탕으로 정확하게 취재하여 보도한 기사입니다."
+                }
+            }
+        ];
+
+        let reports = [
+            { 
+                id: 1, 
+                title: "📱 틱톡에서 본 부산 해운대 대형 상어 출몰 영상", 
+                link: "https://tiktok.com/@example/shark-video", 
+                reason: "부산 해운대에 5m짜리 대형 상어가 나타났다고 하는데, 영상 배경에 한강 영동대교처럼 생긴 다리가 보여서 이상해요!", 
+                votesTrue: 3, 
+                votesFake: 24,
+                author: "고헌초 5학년 탐정",
+                date: "2026년 8월 15일",
+                status: "fake", // fake, real, checking
+                comments: [
+                    { author: "6학년 탐정단", text: "유튜브에서 한강 영상에 CG 합성한 가짜 영상이라고 뉴스 나왔어요!" },
+                    { author: "해양소년단", text: "해운대구청 공식 홈페이지에도 상어 출몰 신고 내역 없었습니다." }
+                ],
+                aiAnalysis: "<b>[AI 수사관 분석 보고서] 🚨 가짜뉴스 확률 95%</b><br>1) <b>도메인 및 영상 분석:</b> 틱톡에 유포된 배경 이미지는 부산 해운대가 아닌 서울 한강 영동대교 부근입니다.<br>2) <b>교차 검증:</b> 해운대구청 및 해양경찰청 공식 출몰 신고 내역이 전혀 존재하지 않습니다."
+            },
+            { 
+                id: 2, 
+                title: "🛸 유튜브 쇼츠: 달 뒷면에서 외계인이 세운 비밀 기지 발굴?", 
+                link: "https://youtube.com/shorts/space-alien-base", 
+                reason: "우주선 사진을 봤는데 화질이 너무 이상하고 옛날 SF 영화 한 장면을 캡처한 것 같아요.", 
+                votesTrue: 1, 
+                votesFake: 31,
+                author: "우주탐정 수현",
+                date: "2026년 8월 16일",
+                status: "fake",
+                comments: [
+                    { author: "과학부장", text: "NASA 공식 웹사이트 갤러리에는 전혀 없는 합성 이미지입니다." }
+                ],
+                aiAnalysis: "<b>[AI 수사관 분석 보고서] 🚨 조작된 미디어 정보</b><br>1) <b>출처 검증:</b> NASA 및 한국항공우주연구원(KARI) 공식 보도 자료에 전혀 없습니다.<br>2) <b>이미지 검증:</b> 2012년 개봉한 SF 영화의 컨셉 아트를 딥페이크 툴로 재가공한 것입니다."
+            },
+            { 
+                id: 3, 
+                title: "🦦 울산 태화강 생태공원에 귀여운 수달 가족 재등장!", 
+                link: "https://use.go.kr/news/articleView.html?idxno=782", 
+                reason: "지역 뉴스 블로그에서 봤는데 진짜 태화강에 수달이 다시 살기 시작했는지 궁금해요!", 
+                votesTrue: 28, 
+                votesFake: 2,
+                author: "자연사랑 은지",
+                date: "2026년 8월 16일",
+                status: "real",
+                comments: [
+                    { author: "담임 선생님", text: "울산시 환경보전과 공식 발표 자료에도 나온 진짜 소식입니다! 태화강 수질이 좋아졌어요." }
+                ],
+                aiAnalysis: "<b>[AI 수사관 분석 보고서] ✅ 진짜 뉴스 (신뢰도 98%)</b><br>1) <b>출처 검증:</b> 울산광역시 생태환경과 공식 보도자료 확인 완료.<br>2) <b>교차 검증:</b> 울산매일, 경상일보 등 지역 정식 언론사 동시 취재 보도 확인."
+            }
+        ];
+
+        // 퀴즈 데이터
+        const quizList = [
+            { question: "Q1. 인터넷 뉴스 주소 끝에 공인 기관이나 언론사가 아닌 개인 블로그 주소나 이상한 알파벳(.co, .net 등)이 붙어 있다면 가짜 뉴스일 확률이 높다.", answer: true, explanation: "정답은 O(참)입니다! 공신력 있는 언론사는 공식 인증된 도메인을 사용하므로 수상한 주소는 가짜 뉴스를 의심해야 합니다." },
+            { question: "Q2. 몇 년 전 태풍 피해 사진을 오늘 일어난 사고인 것처럼 날짜만 살짝 바꿔서 올린 기사는 믿어도 된다.", answer: false, explanation: "정답은 X(거짓)입니다! 과거의 오래된 사건이나 사진을 오늘 일어난 일처럼 재탕하는 것은 전형적인 가짜 뉴스의 수법입니다." },
+            { question: "Q3. 자극적이고 과장된 제목으로 클릭을 유도하는 기사는 내용을 꼼꼼히 살펴보고 출처를 교차 검증해야 한다.", answer: true, explanation: "정답은 O(참)입니다! 사람들의 관심을 끌기 위해 제목을 너무 자극적으로 지은 기사일수록 팩트체크가 필수적입니다." },
+            { question: "Q4. 기사를 쓴 기자 이름이 아예 없거나, 인터넷에 검색해도 전혀 나오지 않는다면 신뢰할 만한 기사라고 볼 수 있다.", answer: false, explanation: "정답은 X(거짓)입니다! 공인된 언론사의 기사는 실명 기자와 소속이 투명하게 공개되므로, 출처가 불분명한 글은 조심해야 합니다." },
+            { question: "Q5. 정부 기관이나 관공서에서 발표한 공식 뉴스는 주소창 끝에 보통 '.go.kr' 같은 공공 도메인이 붙는다.", answer: true, explanation: "정답은 O(참)입니다! 대한민국 정부 및 공공기관의 공식 웹사이트와 보도 자료는 '.go.kr' 도메인을 사용합니다." },
+            { question: "Q6. SNS에서 친구들이 많이 공유한 소식이라면, 내용이 터무니없더라도 무조건 사실로 믿어도 된다.", answer: false, explanation: "정답은 X(거짓)입니다! 조회수나 공유 수가 많다고 해서 진실인 것은 아니며, 오히려 자극적일수록 가짜일 확률이 높습니다." },
+            { question: "Q7. 뉴스를 읽을 때 한 곳의 기사만 보지 않고, 다른 믿을 만한 언론사에서도 똑같이 보도했는지 비교(교차 검증)하는 것이 좋다.", answer: true, explanation: "정답은 O(참)입니다! 여러 언론사의 보도를 비교해 보면 어떤 내용이 사실이고 어떤 부분이 과장되었는지 쉽게 알 수 있습니다." }
+        ];
+
+        let currentReportFilter = 'all';
+        let currentQuizIndex = 0;
+        let currentSelectedNews = null;
+        let foundClues = { url: false, date: false, author: false };
+
+        function switchTab(tabId) {
+            ['toolbox', 'newsroom', 'adventure', 'report', 'challenge'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`nav-${t}`).classList.remove('bg-indigo-700', 'text-white');
+                document.getElementById(`nav-${t}`).classList.add('bg-indigo-800/60', 'text-indigo-100');
+            });
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabId}`).classList.remove('bg-indigo-800/60', 'text-indigo-100');
+            document.getElementById(`nav-${tabId}`).classList.add('bg-indigo-700', 'text-white');
+
+            if (tabId === 'newsroom') renderNewsroom();
+            if (tabId === 'report') renderReports();
+            if (tabId === 'challenge') renderQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderNewsroom() {
+            const grid = document.getElementById('news-grid');
+            grid.innerHTML = newsList.map(news => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-gradient-to-br ${news.thumbnail.bg} flex flex-col items-center justify-center p-6 text-center">
+                            <span class="text-5xl mb-2">${news.thumbnail.icon}</span>
+                            <h4 class="font-jua text-lg ${news.thumbnail.text}">${news.thumbnail.title}</h4>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <div class="flex justify-between items-center text-xs text-slate-500">
+                                <span class="font-semibold text-indigo-600 truncate max-w-[150px]">${news.press}</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">${news.date}</span>
+                            </div>
+                            <h3 class="font-jua text-lg text-slate-800 leading-snug">${news.title}</h3>
+                            <p class="text-slate-600 text-xs line-clamp-2 leading-relaxed">${news.body}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="startAdventure(${news.id})" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-jua py-2.5 rounded-xl transition shadow flex items-center justify-center gap-1.5">
+                            <span>🔍</span> 팩트체크 시작하기
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function startAdventure(newsId) {
+            currentSelectedNews = newsList.find(n => n.id === newsId);
+            foundClues = { url: false, date: false, author: false };
+            document.getElementById('clue-feedback-box').classList.add('hidden');
+            updateAdventureUI();
+            switchTab('adventure');
+        }
+
+        function updateAdventureUI() {
+            if (!currentSelectedNews) {
+                document.getElementById('adventure-empty').classList.remove('hidden');
+                document.getElementById('adventure-content').classList.add('hidden');
+                return;
+            }
+            document.getElementById('adventure-empty').classList.add('hidden');
+            document.getElementById('adventure-content').classList.remove('hidden');
+
+            document.getElementById('adv-title').innerText = currentSelectedNews.title;
+            document.getElementById('adv-press').innerText = currentSelectedNews.press;
+            document.getElementById('adv-date').innerText = currentSelectedNews.date;
+            
+            const thumb = currentSelectedNews.thumbnail;
+            document.getElementById('adv-img-container').className = `absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br ${thumb.bg} text-white`;
+            document.getElementById('adv-img-icon').innerText = thumb.icon;
+            document.getElementById('adv-img-title').innerText = thumb.title;
+
+            document.getElementById('adv-body').innerText = currentSelectedNews.body;
+            document.getElementById('adv-url-text').innerText = `https://${currentSelectedNews.pressUrl} (클릭하여 주소 검증)`;
+
+            ['url', 'date', 'author'].forEach(type => {
+                const badge = document.getElementById(`badge-${type}-inline`);
+                if (foundClues[type]) {
+                    badge.innerText = "조사완료 ✨";
+                    badge.className = "ml-2 text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold border border-emerald-300";
+                } else {
+                    badge.innerText = "미확인";
+                    badge.className = "ml-2 text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-bold";
+                }
+            });
+
+            const count = Object.values(foundClues).filter(Boolean).length;
+            document.getElementById('clue-count').innerText = count;
+            document.getElementById('clue-progress').style.width = `${(count / 3) * 100}%`;
+
+            const btnVerdict = document.getElementById('btn-verdict');
+            if (count === 3) {
+                btnVerdict.disabled = false;
+                btnVerdict.className = "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-jua py-3 rounded-xl shadow transition animate-pulse cursor-pointer";
+                btnVerdict.innerText = "⚖️ 모든 단서 조사 완료! 최종 판정 내리기";
+            } else {
+                btnVerdict.disabled = true;
+                btnVerdict.className = "w-full bg-slate-200 text-slate-400 font-jua py-3 rounded-xl cursor-not-allowed transition";
+                btnVerdict.innerText = `🔒 단서 ${3 - count}개 남음 (본문 영역을 클릭하세요)`;
+            }
+        }
+
+        function checkClue(type) {
+            foundClues[type] = true;
+            updateAdventureUI();
+
+            const feedbackBox = document.getElementById('clue-feedback-box');
+            const feedbackText = document.getElementById('clue-feedback-text');
+            feedbackBox.classList.remove('hidden');
+            feedbackText.innerText = currentSelectedNews.clues[type];
+            
+            feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function openVerdictModal() {
+            document.getElementById('verdict-modal').classList.remove('hidden');
+            document.getElementById('verdict-modal').classList.add('flex');
+        }
+
+        function submitVerdict(userGuessedFake) {
+            document.getElementById('verdict-modal').classList.add('hidden');
+            document.getElementById('verdict-modal').classList.remove('flex');
+
+            const isActuallyFake = currentSelectedNews.isFake;
+            const resultModal = document.getElementById('result-modal');
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultReason = document.getElementById('result-reason');
+
+            const userGuessedIsFake = !userGuessedFake;
+
+            if (userGuessedIsFake === isActuallyFake) {
+                resultIcon.innerText = "🎉";
+                resultTitle.innerText = "정답입니다! 훌륭한 팩트체커예요!";
+            } else {
+                resultIcon.innerText = "🤔";
+                resultTitle.innerText = "아쉽네요! 정확한 근거를 다시 확인해 볼까요?";
+            }
+
+            resultReason.innerText = currentSelectedNews.verdictReason;
+            resultModal.classList.remove('hidden');
+            resultModal.classList.add('flex');
+        }
+
+        function closeResultModal() {
+            document.getElementById('result-modal').classList.add('hidden');
+            document.getElementById('result-modal').classList.remove('flex');
+            switchTab('challenge');
+        }
+
+        function setReportFilter(filterType) {
+            currentReportFilter = filterType;
+            ['all', 'checking', 'fake', 'real'].forEach(f => {
+                const btn = document.getElementById(`filter-${f}`);
+                if (f === filterType) {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-jua bg-indigo-600 text-white transition";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-jua bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+                }
+            });
+            renderReports();
+        }
+
+        function renderReports() {
+            const grid = document.getElementById('report-grid');
+            const searchKeyword = (document.getElementById('reportSearchInput')?.value || '').toLowerCase().trim();
+
+            let filtered = reports.filter(r => {
+                // 필터 태그 처리
+                if (currentReportFilter === 'checking' && r.status !== 'checking') return false;
+                if (currentReportFilter === 'fake' && r.status !== 'fake') return false;
+                if (currentReportFilter === 'real' && r.status !== 'real') return false;
+
+                // 검색어 처리
+                if (searchKeyword) {
+                    const matchTitle = r.title.toLowerCase().includes(searchKeyword);
+                    const matchReason = r.reason.toLowerCase().includes(searchKeyword);
+                    const matchAuthor = (r.author || '').toLowerCase().includes(searchKeyword);
+                    return matchTitle || matchReason || matchAuthor;
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full bg-white rounded-2xl p-10 text-center border border-slate-200 space-y-2">
+                        <span class="text-4xl inline-block mb-1">🔍</span>
+                        <h4 class="font-jua text-lg text-slate-700">등록된 제보가 없습니다</h4>
+                        <p class="text-xs text-slate-500">새로운 의심 소식을 발견하면 오른쪽 상단의 '의심 기사 제보하기' 버튼을 눌러주세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(r => {
+                const totalVotes = (r.votesTrue || 0) + (r.votesFake || 0);
+                const truePercent = totalVotes > 0 ? Math.round((r.votesTrue / totalVotes) * 100) : 50;
+                const fakePercent = totalVotes > 0 ? (100 - truePercent) : 50;
+
+                let statusBadge = `<span class="bg-amber-100 text-amber-700 border border-amber-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold"><i class="fa-solid fa-magnifying-glass"></i> 검증 진행중</span>`;
+                if (r.status === 'fake') {
+                    statusBadge = `<span class="bg-rose-100 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold"><i class="fa-solid fa-triangle-exclamation"></i> 가짜뉴스 의심</span>`;
+                } else if (r.status === 'real') {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold"><i class="fa-solid fa-circle-check"></i> 진짜 뉴스</span>`;
+                }
+
+                return `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4 hover:shadow-md transition flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start gap-2 border-b pb-2.5 border-slate-100">
+                                <div class="flex items-center gap-1.5">
+                                    ${statusBadge}
+                                    <span class="text-xs text-slate-400 font-medium">| ${r.author || '명탐정'} · ${r.date || '최근'}</span>
+                                </div>
+                                <a href="${r.link}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-indigo-600 hover:underline font-mono bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 truncate max-w-[140px] flex items-center gap-1">
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> 원본 링크
+                                </a>
+                            </div>
+
+                            <h3 class="font-jua text-lg text-slate-800 leading-snug">${r.title}</h3>
+
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs text-slate-600 leading-relaxed">
+                                <span class="font-bold text-slate-700 block mb-0.5"><i class="fa-solid fa-quote-left text-indigo-400 mr-1"></i>제보 이유:</span>
+                                ${r.reason}
+                            </div>
+                        </div>
+
+                        <!-- 실시간 투표 프로그레스 바 -->
+                        <div class="space-y-3 pt-2 border-t border-slate-100">
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-bold text-slate-600">
+                                    <span>반 친구들의 생각 (${totalVotes}명 참여)</span>
+                                    <span>진짜 ${truePercent}% vs 가짜 ${fakePercent}%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden flex shadow-inner">
+                                    <div class="bg-emerald-500 h-full transition-all duration-500" style="width: ${truePercent}%"></div>
+                                    <div class="bg-rose-500 h-full transition-all duration-500" style="width: ${fakePercent}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="voteReport(${r.id}, 'true')" class="bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 font-jua py-2 rounded-xl text-xs transition flex items-center justify-center gap-1">
+                                    👍 진짜 같아요 (${r.votesTrue})
+                                </button>
+                                <button onclick="voteReport(${r.id}, 'fake')" class="bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-jua py-2 rounded-xl text-xs transition flex items-center justify-center gap-1">
+                                    🚨 가짜 같아요 (${r.votesFake})
+                                </button>
+                            </div>
+
+                            <!-- AI 수사관 분석 실행 버튼 -->
+                            <button onclick="runReportAIFactCheck(${r.id})" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-jua py-2 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> 🤖 AI 탐정 수사관의 팩트체크 보고서 보기
+                            </button>
+
+                            <!-- 한줄 댓글 피드백 섹션 -->
+                            <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-2">
+                                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+                                    <i class="fa-solid fa-comments text-indigo-500"></i> 친구들의 단서 피드백 (${(r.comments || []).length})
+                                </span>
+                                
+                                <div class="space-y-1.5 max-h-24 overflow-y-auto custom-scrollbar text-xs">
+                                    ${(r.comments && r.comments.length > 0) ? r.comments.map(c => `
+                                        <div class="bg-white p-2 rounded-lg border border-slate-200 text-[11px]">
+                                            <strong class="text-indigo-600">${c.author}:</strong> ${c.text}
+                                        </div>
+                                    `).join('') : '<p class="text-[11px] text-slate-400 italic">아직 작성된 친구들의 피드백이 없습니다.</p>'}
+                                </div>
+
+                                <div class="flex gap-1.5 pt-1">
+                                    <input type="text" id="comment-input-${r.id}" placeholder="발견한 단서 한줄 남기기..." class="flex-1 border border-slate-200 rounded-lg px-2 py-1 text-[11px] focus:outline-none focus:border-indigo-500">
+                                    <button onclick="addReportComment(${r.id})" class="bg-slate-700 hover:bg-slate-800 text-white font-jua px-2.5 py-1 rounded-lg text-[11px]">등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openReportModal() {
+            document.getElementById('report-modal').classList.remove('hidden');
+            document.getElementById('report-modal').classList.add('flex');
+        }
+        function closeReportModal() {
+            document.getElementById('report-modal').classList.add('hidden');
+            document.getElementById('report-modal').classList.remove('flex');
+        }
+
+        function saveReport() {
+            const author = document.getElementById('rep-author').value.trim() || "고헌초 탐정";
+            const title = document.getElementById('rep-title').value.trim();
+            const link = document.getElementById('rep-link').value.trim() || "https://youtube.com/search?q=news";
+            const reason = document.getElementById('rep-reason').value.trim();
+
+            if (!title || !reason) {
+                showToastModal("입력 정보 부족", "기사 제목과 의심스러운 이유를 정확히 적어주세요!");
+                return;
+            }
+
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일`;
+
+            reports.unshift({ 
+                id: Date.now(), 
+                title: `📰 ${title}`, 
+                link: link, 
+                reason: reason, 
+                votesTrue: 1, 
+                votesFake: 1,
+                author: author,
+                date: dateStr,
+                status: 'checking',
+                comments: [],
+                aiAnalysis: `<b>[AI 수사관 실시간 분석] 🔍 교차 검증 진행중</b><br>1) 입력된 링크: <code>${link}</code><br>2) 포털 및 공식 언론사 매칭 결과를 분석 중입니다. 도메인 확장자와 기자 실명을 대조하세요.`
+            });
+
+            document.getElementById('rep-title').value = '';
+            document.getElementById('rep-reason').value = '';
+
+            closeReportModal();
+            renderReports();
+            showToastModal("제보 등록 완료! 🎉", "의심 소식이 성공적으로 제보되었습니다. 친구들과 함께 투표로 검증해보세요!");
+        }
+
+        function voteReport(id, type) {
+            const item = reports.find(r => r.id === id);
+            if (!item) return;
+
+            if (type === 'true') item.votesTrue++;
+            else item.votesFake++;
+
+            // 투표 수에 따른 자동 상태 업데이트
+            if (item.votesFake > item.votesTrue + 5) {
+                item.status = 'fake';
+            } else if (item.votesTrue > item.votesFake + 5) {
+                item.status = 'real';
+            }
+
+            renderReports();
+        }
+
+        function addReportComment(reportId) {
+            const input = document.getElementById(`comment-input-${reportId}`);
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
+
+            const item = reports.find(r => r.id === reportId);
+            if (item) {
+                if (!item.comments) item.comments = [];
+                item.comments.push({
+                    author: "탐정 단원",
+                    text: text
+                });
+                renderReports();
+            }
+        }
+
+        function runReportAIFactCheck(reportId) {
+            const item = reports.find(r => r.id === reportId);
+            if (!item) return;
+
+            const contentElem = document.getElementById('ai-report-content');
+            contentElem.innerHTML = `
+                <div class="p-4 bg-indigo-50/60 rounded-xl border border-indigo-100 space-y-2">
+                    <div class="font-bold text-indigo-900 border-b border-indigo-200 pb-1">
+                        📌 수사 대상: ${item.title}
+                    </div>
+                    <div class="text-xs text-indigo-800 leading-relaxed">
+                        ${item.aiAnalysis || '공식 언론사 교차 검색 및 도메인 신뢰도 수사를 진행했습니다.'}
+                    </div>
+                </div>
+
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 space-y-1">
+                    <div class="font-bold text-amber-800"><i class="fa-solid fa-lightbulb"></i> 명탐정 팩트체크 교차검증 3계명</div>
+                    <ul class="list-disc list-inside space-y-0.5 text-[11px] text-amber-800">
+                        <li>정부/학교 공식 도메인(.go.kr / .es.kr) 여부를 확인하세요.</li>
+                        <li>네이버, 다음 등 포털 뉴스 검색창에 동일 기사가 나오는지 대조하세요.</li>
+                        <li>자극적인 단어('충격', '특종', '무제한')에 현혹되지 마세요.</li>
+                    </ul>
+                </div>
+            `;
+
+            document.getElementById('ai-report-modal').classList.remove('hidden');
+            document.getElementById('ai-report-modal').classList.add('flex');
+        }
+
+        function closeAiReportModal() {
+            document.getElementById('ai-report-modal').classList.add('hidden');
+            document.getElementById('ai-report-modal').classList.remove('flex');
+        }
+
+        function renderQuiz() {
+            const q = quizList[currentQuizIndex];
+            document.getElementById('quiz-progress-text').innerText = `문제 ${currentQuizIndex + 1} / ${quizList.length}`;
+            document.getElementById('quiz-question').innerText = q.question;
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('quiz-btn-container').classList.remove('hidden');
+        }
+
+        function answerQuiz(userAnswer) {
+            const q = quizList[currentQuizIndex];
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden');
+            document.getElementById('quiz-btn-container').classList.add('hidden');
+
+            if (userAnswer === q.answer) {
+                feedback.className = "p-4 rounded-xl text-sm font-medium mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200";
+                feedback.innerHTML = `🎉 <strong>정답입니다!</strong><br>${q.explanation}`;
+            } else {
+                feedback.className = "p-4 rounded-xl text-sm font-medium mb-4 bg-rose-50 text-rose-800 border border-rose-200";
+                feedback.innerHTML = `❌ <strong>틀렸습니다!</strong><br>${q.explanation}`;
+            }
+
+            setTimeout(() => {
+                currentQuizIndex = (currentQuizIndex + 1) % quizList.length;
+                renderQuiz();
+            }, 4000);
+        }
+
+        function showToastModal(title, message) {
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+            document.getElementById('toast-modal').classList.remove('hidden');
+            document.getElementById('toast-modal').classList.add('flex');
+        }
+        function closeToastModal() {
+            document.getElementById('toast-modal').classList.add('hidden');
+            document.getElementById('toast-modal').classList.remove('flex');
+        }
+
+        window.onload = function() {
+            // 기본 시작은 탐정의 도구상자 탭부터 시작
+            switchTab('toolbox');
+        }
+    </script>
+</body>
+</html>
