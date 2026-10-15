@@ -91,7 +91,7 @@
         <div id="translator" class="tab-content">
             <div class="section">
                 <h2>표준어 입력</h2>
-                <textarea id="inputText" placeholder="예: 안녕하세요 / 고생했어요 / 맛있게 먹었어요? / 주말 잘 보내세요"></textarea>
+                <textarea id="inputText" placeholder="예: 안녕하세요 / 재미있나요? / 맛있게 먹었어요? / 주말 잘 보내세요"></textarea>
             </div>
             <div class="section">
                 <h2>방언 선택</h2>
@@ -280,35 +280,35 @@
         const EXAMPLES = {
             gangwon: [
                 { std: '안녕하세요', dialect: '안녕하시우야?' },
-                { std: '고생했어', dialect: '수고했드래요~' },
+                { std: '재미있나요?', dialect: '재미있나이?' },
                 { std: '대박이다', dialect: '억수로 대박이네구먼' },
                 { std: '배고파요', dialect: '배 쫄쫄 꼻프구먼' },
                 { std: '주말 잘 보내세요', dialect: '주말 잘 보드래요' },
             ],
             chungcheong: [
                 { std: '안녕하세요', dialect: '안녕하유~' },
-                { std: '고생했어', dialect: '고생했어유~' },
+                { std: '재미있나요?', dialect: '재미있슈?' },
                 { std: '대박이다', dialect: '아주 대박이유' },
                 { std: '배고파요', dialect: '배고파유' },
                 { std: '주말 잘 보내세요', dialect: '주말 잘 보내셔유' },
             ],
             gyeongsang: [
                 { std: '안녕하세요', dialect: '안녕하세예~' },
-                { std: '고생했어', dialect: '고생했어예~' },
+                { std: '재미있나요?', dialect: '재미있어예?' },
                 { std: '대박이다', dialect: '완전 대박이다예' },
                 { std: '배고파요', dialect: '배고프다예' },
                 { std: '주말 잘 보내세요', dialect: '주말 잘 보내라예' },
             ],
             jeolla: [
                 { std: '안녕하세요', dialect: '안녕하시요잉~' },
-                { std: '고생했어', dialect: '고생해부렀어~' },
+                { std: '재미있나요?', dialect: '재미있냐잉?' },
                 { std: '대박이다', dialect: '허벌나게 대박이네' },
                 { std: '배고파요', dialect: '배고파 죽겄어잉' },
                 { std: '주말 잘 보내세요', dialect: '주말 잘 보내부러' },
             ],
             jeju: [
                 { std: '안녕하세요', dialect: '안녕하십서예~' },
-                { std: '고생했어', dialect: '폭싹 속았수다' },
+                { std: '재미있나요?', dialect: '재미있수꽈?' },
                 { std: '대박이다', dialect: '하영 대박이수다' },
                 { std: '배고파요', dialect: '배 고프수다양' },
                 { std: '주말 잘 보내세요', dialect: '주말 잘 보냄수다' },
@@ -318,31 +318,31 @@
         const DICTIONARY_DATA = {
             gangwon: [
                 { std: '안녕하세요', dialects: { gangwon: '안녕하시우야?', chungcheong: '안녕하유~', gyeongsang: '안녕하세예~', jeolla: '안녕하시요잉~', jeju: '안녕하십서예~' } },
-                { std: '고생했어', dialects: { gangwon: '수고했드래요~', chungcheong: '고생했어유~', gyeongsang: '고생했어예~', jeolla: '고생해부렀어~', jeju: '폭싹 속았수다' } },
+                { std: '재미있나요?', dialects: { gangwon: '재미있나이?', chungcheong: '재미있슈?', gyeongsang: '재미있어예?', jeolla: '재미있냐잉?', jeju: '재미있수꽈?' } },
                 { std: '대박이다', dialects: { gangwon: '억수로 대박이네구먼', chungcheong: '아주 대박이유', gyeongsang: '완전 대박이다예', jeolla: '허벌나게 대박이네', jeju: '하영 대박이수다' } },
                 { std: '배고파요', dialects: { gangwon: '배 쫄쫄 꼻프구먼', chungcheong: '배고파유', gyeongsang: '배고프다예', jeolla: '배고파 죽겄어잉', jeju: '배 고프수다양' } },
             ],
             chungcheong: [
                 { std: '안녕하세요', dialects: { gangwon: '안녕하시껴?', chungcheong: '안녕하유~', gyeongsang: '안녕하세예~', jeolla: '안녕하시요잉~', jeju: '안녕하십서예~' } },
-                { std: '고생했어', dialects: { gangwon: '수고했드래요~', chungcheong: '고생했어유~', gyeongsang: '고생했어예~', jeolla: '고생해부렀어~', jeju: '폭싹 속았수다' } },
+                { std: '재미있나요?', dialects: { gangwon: '재미있나이?', chungcheong: '재미있슈?', gyeongsang: '재미있어예?', jeolla: '재미있냐잉?', jeju: '재미있수꽈?' } },
                 { std: '대박이다', dialects: { gangwon: '억수로 대박이네구먼', chungcheong: '아주 대박이유', gyeongsang: '완전 대박이다예', jeolla: '허벌나게 대박이네', jeju: '하영 대박이수다' } },
                 { std: '조금', dialects: { gangwon: '쪼꼼', chungcheong: '쪼매', gyeongsang: '쪼매', jeolla: '쪼깐', jeju: '호꼼' } },
             ],
             gyeongsang: [
                 { std: '안녕하세요', dialects: { gangwon: '안녕하시껴?', chungcheong: '안녕하유~', gyeongsang: '안녕하세예~', jeolla: '안녕하시요잉~', jeju: '안녕하십서예~' } },
-                { std: '고생했어', dialects: { gangwon: '수고했드래요~', chungcheong: '고생했어유~', gyeongsang: '고생했어예~', jeolla: '고생해부렀어~', jeju: '폭싹 속았수다' } },
+                { std: '재미있나요?', dialects: { gangwon: '재미있나이?', chungcheong: '재미있슈?', gyeongsang: '재미있어예?', jeolla: '재미있냐잉?', jeju: '재미있수꽈?' } },
                 { std: '많이', dialects: { gangwon: '이빠이 마이', chungcheong: '많이', gyeongsang: '천지삐깔', jeolla: '허벌나게', jeju: '하영' } },
                 { std: '빨리', dialects: { gangwon: '얼렁얼렁', chungcheong: '얼렁', gyeongsang: '퍼뜩퍼뜩', jeolla: '얼릉얼릉', jeju: '혼저혼저' } },
             ],
             jeolla: [
                 { std: '안녕하세요', dialects: { gangwon: '안녕하시껴?', chungcheong: '안녕하유~', gyeongsang: '안녕하세예~', jeolla: '안녕하시요잉~', jeju: '안녕하십서예~' } },
-                { std: '고생했어', dialects: { gangwon: '수고했드래요~', chungcheong: '고생했어유~', gyeongsang: '고생했어예~', jeolla: '고생해부렀어~', jeju: '폭싹 속았수다' } },
+                { std: '재미있나요?', dialects: { gangwon: '재미있나이?', chungcheong: '재미있슈?', gyeongsang: '재미있어예?', jeolla: '재미있냐잉?', jeju: '재미있수꽈?' } },
                 { std: '많이', dialects: { gangwon: '이빠이 마이', chungcheong: '많이', gyeongsang: '천지삐깔', jeolla: '허벌나게', jeju: '하영' } },
                 { std: '밥 먹었어?', dialects: { gangwon: '밥 묵었나이?', chungcheong: '밥 먹었슈?', gyeongsang: '밥 묵었나?', jeolla: '밥 먹었냐잉?', jeju: '밥 먹었수꽈?' } },
             ],
             jeju: [
                 { std: '안녕하세요', dialects: { gangwon: '안녕하시껴?', chungcheong: '안녕하유~', gyeongsang: '안녕하세예~', jeolla: '안녕하시요잉~', jeju: '안녕하십서예~' } },
-                { std: '고생했어', dialects: { gangwon: '수고했드래요~', chungcheong: '고생했어유~', gyeongsang: '고생했어예~', jeolla: '고생해부렀어~', jeju: '폭싹 속았수다' } },
+                { std: '재미있나요?', dialects: { gangwon: '재미있나이?', chungcheong: '재미있슈?', gyeongsang: '재미있어예?', jeolla: '재미있냐잉?', jeju: '재미있수꽈?' } },
                 { std: '할아버지', dialects: { gangwon: '하르배이', chungcheong: '할아버지', gyeongsang: '할배', jeolla: '할배', jeju: '하르방' } },
                 { std: '왜', dialects: { gangwon: '왜', chungcheong: '왜', gyeongsang: '왜', jeolla: '왜', jeju: '무사' } },
             ],
@@ -351,35 +351,35 @@
         const MATCHING_PAIRS = {
             gangwon: [
                 { id: 1, std: '안녕하세요', dialect: '안녕하시우야?' },
-                { id: 2, std: '고생했어', dialect: '수고했드래요~' },
+                { id: 2, std: '재미있나요?', dialect: '재미있나이?' },
                 { id: 3, std: '대박이다', dialect: '억수로 대박이네구먼' },
                 { id: 4, std: '배고파요', dialect: '배 쫄쫄 꼻프구먼' },
                 { id: 5, std: '주말 잘 보내세요', dialect: '주말 잘 보드래요' },
             ],
             chungcheong: [
                 { id: 1, std: '안녕하세요', dialect: '안녕하유~' },
-                { id: 2, std: '고생했어', dialect: '고생했어유~' },
+                { id: 2, std: '재미있나요?', dialect: '재미있슈?' },
                 { id: 3, std: '대박이다', dialect: '아주 대박이유' },
                 { id: 4, std: '배고파요', dialect: '배고파유' },
                 { id: 5, std: '주말 잘 보내세요', dialect: '주말 잘 보내셔유' },
             ],
             gyeongsang: [
                 { id: 1, std: '안녕하세요', dialect: '안녕하세예~' },
-                { id: 2, std: '고생했어', dialect: '고생했어예~' },
+                { id: 2, std: '재미있나요?', dialect: '재미있어예?' },
                 { id: 3, std: '대박이다', dialect: '완전 대박이다예' },
                 { id: 4, std: '배고파요', dialect: '배고프다예' },
                 { id: 5, std: '주말 잘 보내세요', dialect: '주말 잘 보내라예' },
             ],
             jeolla: [
                 { id: 1, std: '안녕하세요', dialect: '안녕하시요잉~' },
-                { id: 2, std: '고생했어', dialect: '고생해부렀어~' },
+                { id: 2, std: '재미있나요?', dialect: '재미있냐잉?' },
                 { id: 3, std: '대박이다', dialect: '허벌나게 대박이네' },
                 { id: 4, std: '배고파요', dialect: '배고파 죽겄어잉' },
                 { id: 5, std: '주말 잘 보내세요', dialect: '주말 잘 보내부러' },
             ],
             jeju: [
                 { id: 1, std: '안녕하세요', dialect: '안녕하십서예~' },
-                { id: 2, std: '고생했어', dialect: '폭싹 속았수다' },
+                { id: 2, std: '재미있나요?', dialect: '재미있수꽈?' },
                 { id: 3, std: '대박이다', dialect: '하영 대박이수다' },
                 { id: 4, std: '배고파요', dialect: '배 고프수다양' },
                 { id: 5, std: '주말 잘 보내세요', dialect: '주말 잘 보냄수다' },
@@ -389,31 +389,31 @@
         const BLANK_SENTENCES = {
             gangwon: [
                 { sentence: '____ (안녕하세요)', blank: '안녕하시우야?' },
-                { sentence: '____ (고생했어)', blank: '수고했드래요~' },
+                { sentence: '____ (재미있나요?)', blank: '재미있나이?' },
                 { sentence: '____ (대박이다)', blank: '억수로 대박이네구먼' },
                 { sentence: '____ (배고파요)', blank: '배 쫄쫄 꼻프구먼' },
             ],
             chungcheong: [
                 { sentence: '____ (안녕하세요)', blank: '안녕하유~' },
-                { sentence: '____ (고생했어)', blank: '고생했어유~' },
+                { sentence: '____ (재미있나요?)', blank: '재미있슈?' },
                 { sentence: '____ (대박이다)', blank: '아주 대박이유' },
                 { sentence: '____ (배고파요)', blank: '배고파유' },
             ],
             gyeongsang: [
                 { sentence: '____ (안녕하세요)', blank: '안녕하세예~' },
-                { sentence: '____ (고생했어)', blank: '고생했어예~' },
+                { sentence: '____ (재미있나요?)', blank: '재미있어예?' },
                 { sentence: '____ (대박이다)', blank: '완전 대박이다예' },
                 { sentence: '____ (배고파요)', blank: '배고프다예' },
             ],
             jeolla: [
                 { sentence: '____ (안녕하세요)', blank: '안녕하시요잉~' },
-                { sentence: '____ (고생했어)', blank: '고생해부렀어~' },
+                { sentence: '____ (재미있나요?)', blank: '재미있냐잉?' },
                 { sentence: '____ (대박이다)', blank: '허벌나게 대박이네' },
                 { sentence: '____ (배고파요)', blank: '배고파 죽겄어잉' },
             ],
             jeju: [
                 { sentence: '____ (안녕하세요)', blank: '안녕하십서예~' },
-                { sentence: '____ (고생했어)', blank: '폭싹 속았수다' },
+                { sentence: '____ (재미있나요?)', blank: '재미있수꽈?' },
                 { sentence: '____ (대박이다)', blank: '하영 대박이수다' },
                 { sentence: '____ (배고파요)', blank: '배 고프수다양' },
             ],
@@ -440,7 +440,7 @@
             quizDone: false,
         };
 
-        // 서술어/어간 추출 및 자연스러운 어미 결합 번역 함수
+        // 미등록 문장 및 동적 변환 함수 (불필요한 어미 중복 제거 로직 강화)
         function translate(text, region) {
             if (!text) return '';
             let cleanText = text.trim().toLowerCase();
@@ -485,15 +485,14 @@
                 if (region === 'jeju') return '곱들락하게 잘생겼수다양~';
             }
 
-            // 미등록 문장의 경우, 기존 어미(어요, 예요, 다, 요 등)를 깔끔하게 떼어내고 어간 뒤에 사투리 어미를 자연스럽게 결합
+            // 불필요한 표준어 어미(나요, 가요, 어요, 에요, 예요, 다, 요 등)를 완전히 도려내고 어간만 추출
             let baseText = cleanText.replace(/[.?!~]/g, '').trim();
-            // '어요', '했어요', '에요', '예요', '다' 등의 종결형 제거
-            baseText = baseText.replace(/(어요|에요|예요|했어|했어요|다|요)$/g, '');
+            baseText = baseText.replace(/(나요|가요|어요|에요|예요|했어|했어요|다|요)$/g, '');
 
             const regionalEndings = {
                 gangwon: { suffix: '드래요~', question: '나이?' },
                 chungcheong: { suffix: '유~', question: '슈?' },
-                gyeongsang: { suffix: '어예~', question: '나예?' },
+                gyeongsang: { suffix: '어예~', question: '어예?' },
                 jeolla: { suffix: '부러~', question: '냐잉?' },
                 jeju: { suffix: '수다양~', question: '수꽈?' }
             };
@@ -730,7 +729,7 @@
             const words = DICTIONARY_DATA[state.dictRegion];
             const container = document.getElementById('dictionaryContent');
             if (!container) return;
-            container.innerHTML = `<div class="section"><div class="dictionary-grid">${words.map(w => `<div class="dict-card"><div class="dict-std">${w.std}</div><div class="dict-labels">${Object.entries(w.dialects).map(([region, dialect]) => `<span class="dict-label">${REGIONS.find(r => r.id === region).name}: ${dialect}</span>`).join('')}</div></div>`).join('')}</div></div>`;
+            container.innerHTML = `<div class="section"><div class="dictionary-grid">${Array.isArray(words) ? words.map(w => `<div class="dict-card"><div class="dict-std">${w.std}</div><div class="dict-labels">${Object.entries(w.dialects).map(([region, dialect]) => `<span class="dict-label">${REGIONS.find(r => r.id === region).name}: ${dialect}</span>`).join('')}</div></div>`).join('') : ''}</div></div>`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
