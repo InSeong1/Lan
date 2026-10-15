@@ -154,13 +154,13 @@
             { id: 'jeju', name: '제주도', icon: '🍊' },
         ];
 
-        // 100개 문장 완벽 탑재 지역별 방언 사전
+        // 오류 없이 정제된 100개 문장 사전 데이터
         const DICTIONARY = {
             gangwon: {
                 '안녕하세요': '안녕하시우야?', '안녕히 가세요': '안녕히 가시드래요~', '잘 지냈어요?': '잘 지냈드래요?', '고마워요': '고맙구먼유', '감사합니다': '감사드리구먼유',
                 '미안합니다': '미안시럽구먼유', '죄송해요': '죄송시럽구먼유', '괜찮아요': '괜찮아유~', '네, 알겠습니다': '암, 알았드래요', '잠깐만요': '조꼼만 있으라',
                 '천천히 하세요': '천천히들 허거늘', '내 말이 그 말이에요': '내 말이 그 말일시구먼', '말하자면 길어요': '말하랴믄 길드래요', '이따가 봐요': '이따 보드래요',
-                '무슨 일 있어요?': '무슨 일 있나이?', '진짜요?': '진짜가유?', '대박이다': '억수로 대박이네구먼', '잘 모르겠어요':ั '잘 모르겄드래요', '도와드릴까요?': '도와주까이?',
+                '무슨 일 있어요?': '무슨 일 있나이?', '진짜요?': '진짜가유?', '대박이다': '억수로 대박이네구먼', '잘 모르겠어요': '잘 모르겄드래요', '도와드릴까요?': '도와주까이?',
                 '피곤해요': '골골허니 피곤하구먼', '배고파요': '배 쫄쫄 꼻프구먼', '맛있겠다': '참 맛나겄드래요', '연락할게요': '연락 허드래요', '오랜만이에요': '오랜만이구먼유',
                 '다음에 또 봐요': '담에 또 보드래요', '조심히 들어가세요': '조심히 들어가시드래요', '주말 잘 보내세요': '주말 잘 보드래요', '별말씀을요': '별말씀을 다 허구먼유', '신경 쓰지 마세요': '신경 쓰지 말드래요',
                 '다 잘될 거예요': '다 잘 될시구먼', '당연하죠': '암, 당연허구말구', '틀림없어요': '틀림없드래요', '설마요': '설마 그라겠나이', '그럴 리가 없어요': '그럴 리가 없드래요',
@@ -234,7 +234,7 @@
                 '다음에 또 봐요': '다음에 또 보자잉', '조심히 들어가세요': '조심히 들어가셔부러', '주말 잘 보내세요': '주말 잘 보내부러', '별말씀을요': '별말씀을 다 해분다잉', '신경 쓰지 마세요': '신경 쓰지 말아부러',
                 '다 잘될 거예요': '다 잘 될 것이여', '당연하죠': '당연하지라', '틀림없어요': '틀림없어부러', '설마요': '설마 그럴라고', '그럴 리가 없어요': '그럴 리가 없단마시',
                 '상관없어요': '상관없어부러', '아무거나 다 좋아요': '아무거나 다 좋아부러', '마음대로 하세요': '마음대로 해부러', '제 생각은 좀 달라요': '내 생각은 좀 틀려부러', '확실해요?': '확실하냐잉?',
-                '별일 아니에요': '별일 아니어부러', '그냥 그래요': '그냥 그럭저럭이여', '생각 좀 해볼게요': '생각 좀 해볼게부러', '무슨 뜻이에요?유': '무슨 뜻이당가?', '잠깐 시간 있으세요?': '조깐 시간 있냐잉?',
+                '별일 아니에요': '별일 아니어부러', '그냥 그래요': '그냥 그럭저럭이여', '생각 좀 해볼게요': '생각 좀 해볼게부러', '무슨 뜻이에요?': '무슨 뜻이당가?', '잠깐 시간 있으세요?': '조깐 시간 있냐잉?',
                 '부탁 하나만 들어줄래요?': '부탁 하나 들어줄래잉?', '먼저 가세요': '먼저 가셔부러', '다시 한번 말씀해 주세요': '다시 한 번 말해줘부러', '뭐 좀 물어봐도 돼요?': '뭐 좀 물어봐도 되냐잉?', '언제 만날까요?': '언제 만날까잉?',
                 '편하신 시간에 맞출게요': '편하신 시간에 맞출게부러', '약속을 미룰 수 있을까요?': '약속 좀 미룰 수 있겠냐잉?', '제가 살게요': '내가 살게부러', '각자 계산해요': '각자 계산해부러', '여기서 뭐 하세요?': '여기서 뭐 허냐잉?',
                 '어디로 가면 돼요?': '어디로 가면 되당가?', '문 좀 열어주시겠어요?': '문 좀 열어주라잉?', '태워다 줄게요': '태워다 줄게부러', '방해해서 미안해요': '방해해서 미안해부러', '나중에 다시 올게요': '나중에 다시 올게부러',
@@ -269,7 +269,7 @@
                 '이제 퇴근해요': '이제 퇴근합수다', '오늘 저녁 뭐 먹지?': '오늘 저녁 무사 먹을꼬?', '빨리 집에 가고 싶어요': '혼저 집에 가고 싶수다', '주말만 기다리고 있어요': '주말만 기다리고 있수다', '어디 뒀더라?': '어디 뒀드라?',
                 '잠이 안 와요': '잠이 안 오수다', '벌써 시간이 이렇게 됐나?': '벌써 시간이 이렇게 됐수꽈?', '핸드폰 어디 있지?': '핸드폰 어디 있으수꽈?', '오늘 금요일이죠?': '오늘 금요일이수꽈?', '돈이 다 어디 갔지?': '돈이 다 어디 갔수꽈?',
                 '정신이 하나도 없네요': '정신이 하나도 없수다', '내일 출근하기 싫다': '내일 출근하기 싫수다', '오늘 하루도 끝났다': '오늘 하루도 끝났수다', '늦잠 잤어요': '늦잠 잤수다', '택시 타야겠어요': '택시 타야겠수다',
-                '배달 시켜 먹을까요?': '배달 시켜 먹을까수꽈?', '나중에 하지 뭐': '나중에 하수다', '은근히 신경 쓰이네': '은근히 신경 쓰이수다', '이거 진짜실화냐?': '이거 진짜 실화수꽈?'
+                '배달 시켜 먹을까요?': '배달 시켜 먹을까수꽈?', '나중에 하지 뭐': '나중에 하수다', '은근히 신경 쓰이네': '은근히 신경 쓰이수다', '이거 진짜 실화냐?': '이거 진짜 실화수꽈?'
             }
         };
 
@@ -495,11 +495,6 @@
             initRegions('matchRegionContainer', 'matchRegion');
             initRegions('blankRegionContainer', 'blankRegion');
             initRegions('dictRegionContainer', 'dictRegion');
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => switchTab(e.target.dataset.tab));
-            });
-            document.getElementById('inputText').addEventListener('input', updateTranslator);
-            document.getElementById('copyBtn').addEventListener('click', copyText);
             updateTranslator();
             renderQuiz();
             renderMatching();
@@ -509,7 +504,8 @@
 
         function initRegions(containerId, stateKey) {
             const container = document.getElementById(containerId);
-            container.innerHTML = REGIONS.map(r => `<button class="region-btn ${r.id === state[stateKey] ? 'active' : ''}" data-region="${r.id}"><div class="region-icon">${r.icon}</div><div class="region-name">${r.name}</div></button>`).join('');
+            if (!container) return;
+            container.innerHTML = REGIONS.map(r => `<button type="button" class="region-btn ${r.id === state[stateKey] ? 'active' : ''}" data-region="${r.id}"><div class="region-icon">${r.icon}</div><div class="region-name">${r.name}</div></button>`).join('');
             container.querySelectorAll('.region-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     state[stateKey] = e.currentTarget.dataset.region;
@@ -522,12 +518,16 @@
             state.tab = tab;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-            document.getElementById(tab).style.display = 'block';
+            const targetBtn = document.querySelector(`[data-tab="${tab}"]`);
+            const targetContent = document.getElementById(tab);
+            if (targetBtn) targetBtn.classList.add('active');
+            if (targetContent) targetContent.style.display = 'block';
         }
 
         function updateTranslator() {
-            const input = document.getElementById('inputText').value.trim();
+            const inputEl = document.getElementById('inputText');
+            if (!inputEl) return;
+            const input = inputEl.value.trim();
             const output = translate(input, state.selectedRegion);
             const outputEl = document.getElementById('outputText');
             const copyBtn = document.getElementById('copyBtn');
@@ -539,14 +539,18 @@
                 copyBtn.style.display = 'none';
             }
             const examples = EXAMPLES[state.selectedRegion];
-            if (examples) {
-                document.getElementById('examplesContainer').innerHTML = `<div class="example-title">📚 ${REGIONS.find(r => r.id === state.selectedRegion).name} 주요 인사말 및 사투리 예시 (클릭 시 자동 입력):</div>${examples.map(ex => `<div class="example-item" style="cursor: pointer;" onclick="setInputValue('${ex.std}')"><span class="example-std">📝 ${ex.std}</span> → <span class="example-dialect">${ex.dialect}</span></div>`).join('')}`;
+            const examplesContainer = document.getElementById('examplesContainer');
+            if (examples && examplesContainer) {
+                examplesContainer.innerHTML = `<div class="example-title">📚 ${REGIONS.find(r => r.id === state.selectedRegion).name} 주요 인사말 및 사투리 예시 (클릭 시 자동 입력):</div>${examples.map(ex => `<div class="example-item" style="cursor: pointer;" onclick="setInputValue('${ex.std}')"><span class="example-std">📝 ${ex.std}</span> → <span class="example-dialect">${ex.dialect}</span></div>`).join('')}`;
             }
         }
 
         window.setInputValue = function(text) {
-            document.getElementById('inputText').value = text;
-            updateTranslator();
+            const inputEl = document.getElementById('inputText');
+            if (inputEl) {
+                inputEl.value = text;
+                updateTranslator();
+            }
         };
 
         function copyText() {
@@ -581,18 +585,21 @@
 
         function showCopiedFeedback() {
             const btn = document.getElementById('copyBtn');
-            btn.textContent = '✅ 복사됨!';
-            setTimeout(() => { btn.textContent = '📋 복사'; }, 1500);
+            if (btn) {
+                btn.textContent = '✅ 복사됨!';
+                setTimeout(() => { btn.textContent = '📋 복사'; }, 1500);
+            }
         }
 
         function renderQuiz() {
             const quizContainer = document.getElementById('quizContent');
+            if (!quizContainer) return;
             const q = QUIZ_DATA[state.quizIdx];
             if (state.quizDone) {
-                quizContainer.innerHTML = `<div class="result"><div class="result-emoji">🏆</div><div class="result-title">퀴즈 완료!</div><div class="result-score">${QUIZ_DATA.length}문제 중 <span class="score-highlight">${state.quizScore}</span>문제 맞음!</div><button class="reset-btn" onclick="resetQuiz()">🔄 다시 풀기</button></div>`;
+                quizContainer.innerHTML = `<div class="result"><div class="result-emoji">🏆</div><div class="result-title">퀴즈 완료!</div><div class="result-score">${QUIZ_DATA.length}문제 중 <span class="score-highlight">${state.quizScore}</span>문제 맞음!</div><button type="button" class="reset-btn" onclick="resetQuiz()">🔄 다시 풀기</button></div>`;
                 return;
             }
-            quizContainer.innerHTML = `<div class="section"><div class="quiz-header"><span>문제 ${state.quizIdx + 1} / ${QUIZ_DATA.length}</span><span>점수: ${state.quizScore}</span></div><div class="quiz-question">Q. ${q.q}</div><div class="quiz-options">${q.opts.map((opt, i) => `<button class="option-btn" onclick="answerQuiz(${i})" ${state.quizAnswered ? 'disabled' : ''}>${i + 1}.${opt}</button>`).join('')}</div>${state.quizAnswered ? `<div class="feedback"><div class="feedback-title">${state.quizSelectedAnswer === q.ans ? '✅ 정답!' : '❌ 틀렸어요!'}</div><div class="feedback-text">${q.exp}</div><button class="next-btn" onclick="nextQuiz()">${state.quizIdx + 1 === QUIZ_DATA.length ? '결과 확인' : '다음 문제 ➜'}</button></div>` : ''}</div>`;
+            quizContainer.innerHTML = `<div class="section"><div class="quiz-header"><span>문제 ${state.quizIdx + 1} / ${QUIZ_DATA.length}</span><span>점수: ${state.quizScore}</span></div><div class="quiz-question">Q. ${q.q}</div><div class="quiz-options">${q.opts.map((opt, i) => `<button type="button" class="option-btn" onclick="answerQuiz(${i})" ${state.quizAnswered ? 'disabled' : ''}>${i + 1}.${opt}</button>`).join('')}</div>${state.quizAnswered ? `<div class="feedback"><div class="feedback-title">${state.quizSelectedAnswer === q.ans ? '✅ 정답!' : '❌ 틀렸어요!'}</div><div class="feedback-text">${q.exp}</div><button type="button" class="next-btn" onclick="nextQuiz()">${state.quizIdx + 1 === QUIZ_DATA.length ? '결과 확인' : '다음 문제 ➜'}</button></div>` : ''}</div>`;
             if (state.quizAnswered) {
                 document.querySelectorAll('.option-btn').forEach((btn, i) => {
                     btn.classList.remove('correct', 'wrong', 'disabled');
@@ -636,8 +643,9 @@
         function renderMatching() {
             const pairs = MATCHING_PAIRS[state.matchRegion];
             const container = document.getElementById('matchingGameContent');
+            if (!container) return;
             const shuffledDialect = [...pairs].sort(() => Math.random() - 0.5);
-            container.innerHTML = `<div class="section"><div class="matching-grid"><div class="matching-column"><div style="font-weight: bold; margin-bottom: 10px;">표준어</div>${pairs.map((p) => `<button class="match-item" data-type="std" data-id="${p.id}">${p.std}</button>`).join('')}</div><div class="matching-column"><div style="font-weight: bold; margin-bottom: 10px;">사투리</div>${shuffledDialect.map((p) => `<button class="match-item" data-type="dialect" data-id="${p.id}">${p.dialect}</button>`).join('')}</div></div><div class="match-score" id="matchScore" style="display:none;"></div></div>`;
+            container.innerHTML = `<div class="section"><div class="matching-grid"><div class="matching-column"><div style="font-weight: bold; margin-bottom: 10px;">표준어</div>${pairs.map((p) => `<button type="button" class="match-item" data-type="std" data-id="${p.id}">${p.std}</button>`).join('')}</div><div class="matching-column"><div style="font-weight: bold; margin-bottom: 10px;">사투리</div>${shuffledDialect.map((p) => `<button type="button" class="match-item" data-type="dialect" data-id="${p.id}">${p.dialect}</button>`).join('')}</div></div><div class="match-score" id="matchScore" style="display:none;"></div></div>`;
             initMatchingGame();
         }
 
@@ -666,8 +674,11 @@
                             selectedStd = null;
                             if (matchedPairs.size === pairs.length) {
                                 setTimeout(() => {
-                                    document.getElementById('matchScore').style.display = 'block';
-                                    document.getElementById('matchScore').innerHTML = `🎉 모두 맞췄어요! 완벽합니다!<br><button class="reset-match-btn" onclick="renderMatching()">처음부터 다시하기</button>`;
+                                    const matchScoreEl = document.getElementById('matchScore');
+                                    if (matchScoreEl) {
+                                        matchScoreEl.style.display = 'block';
+                                        matchScoreEl.innerHTML = `🎉 모두 맞췄어요! 완벽합니다!<br><button type="button" class="reset-match-btn" onclick="renderMatching()">처음부터 다시하기</button>`;
+                                    }
                                 }, 300);
                             }
                         } else {
@@ -682,11 +693,13 @@
         function renderBlanks() {
             const sentences = BLANK_SENTENCES[state.blankRegion];
             const container = document.getElementById('blankGameContent');
-            container.innerHTML = `<div class="section"><div class="blank-game">${sentences.map((s, i) => `<div style="margin: 15px 0; display:flex; align-items:center; flex-wrap:wrap; gap:10px;"><div>${s.sentence}</div><div><input type="text" class="blank-input" id="blank-${i}" placeholder="정답 입력"><button class="check-btn" onclick="checkBlank(${i}, '${s.blank}')">확인</button></div></div>`).join('')}</div></div>`;
+            if (!container) return;
+            container.innerHTML = `<div class="section"><div class="blank-game">${sentences.map((s, i) => `<div style="margin: 15px 0; display:flex; align-items:center; flex-wrap:wrap; gap:10px;"><div>${s.sentence}</div><div><input type="text" class="blank-input" id="blank-${i}" placeholder="정답 입력"><button type="button" class="check-btn" onclick="checkBlank(${i}, '${s.blank}')">확인</button></div></div>`).join('')}</div></div>`;
         }
 
         window.checkBlank = function(idx, answer) {
             const input = document.getElementById(`blank-${idx}`);
+            if (!input) return;
             if (input.value.trim() === answer) {
                 input.style.background = '#dcfce7';
                 input.style.borderColor = '#22c55e';
@@ -699,10 +712,24 @@
         function renderDictionary() {
             const words = DICTIONARY_DATA[state.dictRegion];
             const container = document.getElementById('dictionaryContent');
+            if (!container) return;
             container.innerHTML = `<div class="section"><div class="dictionary-grid">${words.map(w => `<div class="dict-card"><div class="dict-std">${w.std}</div><div class="dict-labels">${Object.entries(w.dialects).map(([region, dialect]) => `<span class="dict-label">${REGIONS.find(r => r.id === region).name}: ${dialect}</span>`).join('')}</div></div>`).join('')}</div></div>`;
         }
 
-        init();
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => switchTab(e.target.dataset.tab));
+            });
+            const inputEl = document.getElementById('inputText');
+            if (inputEl) {
+                inputEl.addEventListener('input', updateTranslator);
+            }
+            const copyBtn = document.getElementById('copyBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', copyText);
+            }
+            init();
+        });
     </script>
 </body>
 </html>
